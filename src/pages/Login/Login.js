@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import CategoryTitle from "../../components/CategoryTitle/CategoryTitle";
 import CustomButton from "../../components/CustoButton/CustomButton";
 import TextInput from "../../components/TextInput/TextInput";
@@ -47,6 +48,7 @@ const Login = () => {
         >
           Se connecter
         </CustomButton>
+        <Link to="/inscription">Pas encore de compte ? Enregistrez vous !</Link>
       </FormContainer>
     </LoginContainer>
   );

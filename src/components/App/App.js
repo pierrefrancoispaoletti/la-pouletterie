@@ -10,6 +10,7 @@ import Menu from "../Menu/Menu";
 import ProductDetail from "../ProductDetail/ProductDetail";
 import { useSelector } from "react-redux";
 import { selectUserTokenDecoded } from "../../redux/reducers/user/user.selectors";
+import Register from "../../pages/Register/Register";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
@@ -22,6 +23,10 @@ const App = () => {
         <Route exact path="/" element={<HomePage />} />
         <Route path="/produits/:category" element={<ProductsPage />} />
         <Route path="/connexion" element={!user ? <Login /> : <HomePage />} />
+        <Route
+          path="/inscription"
+          element={!user ? <Register /> : <HomePage />}
+        />
         <Route path="/panier" element={<Checkout />} />
       </Routes>
       <ProductDetail />

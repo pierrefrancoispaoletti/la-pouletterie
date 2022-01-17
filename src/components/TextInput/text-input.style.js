@@ -11,6 +11,7 @@ const shrinkLabelStyles = css`
 export const GroupContainer = styled.div`
   position: relative;
   margin: auto 0;
+  width: 80%;
 
   input[type="email"] {
     letter-spacing: 0.1em;
@@ -50,7 +51,7 @@ export const LabelContainer = styled.label`
   position: absolute;
   pointer-events: none;
   left: 5px;
-  top: 10px;
+  top: 35px;
   transition: 300ms ease all;
   text-transform: capitalize;
 
