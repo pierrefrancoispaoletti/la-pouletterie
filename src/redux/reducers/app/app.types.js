@@ -1,0 +1,5 @@
+export const appActionTypes = {
+  TOGGLE_MENU: "TOGGLE_MENU",
+  TOGGLE_LOADING: "TOGGLE_LOADING",
+  SET_MESSAGE: "SET_MESSAGE",
+};
