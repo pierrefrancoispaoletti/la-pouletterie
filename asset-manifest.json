@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/la-pouletterie/static/css/main.3ce23c5e.css",
-    "main.js": "/la-pouletterie/static/js/main.229ca456.js",
+    "main.js": "/la-pouletterie/static/js/main.31086cd6.js",
     "static/media/ok2-removebg-preview.png": "/la-pouletterie/static/media/ok2-removebg-preview.144ea29488d417297600.png",
     "index.html": "/la-pouletterie/index.html",
     "main.3ce23c5e.css.map": "/la-pouletterie/static/css/main.3ce23c5e.css.map",
-    "main.229ca456.js.map": "/la-pouletterie/static/js/main.229ca456.js.map"
+    "main.31086cd6.js.map": "/la-pouletterie/static/js/main.31086cd6.js.map"
   },
   "entrypoints": [
     "static/css/main.3ce23c5e.css",
-    "static/js/main.229ca456.js"
+    "static/js/main.31086cd6.js"
   ]
 }
