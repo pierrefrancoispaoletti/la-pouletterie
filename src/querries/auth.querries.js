@@ -51,8 +51,8 @@ export const registerQuerry = async (newUserObject, dispatch, navigate) => {
     const {
       data: { token, message },
     } = response;
-    dispatch(getUserToken(token));
     dispatch(toggleLoading());
+    dispatch(getUserToken(token));
     dispatch(
       setMessage({
         status: response.status === 200 ? "success" : "error",

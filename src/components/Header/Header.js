@@ -9,7 +9,11 @@ import { logout } from "../../redux/reducers/user/user.actions";
 import { emptyCart } from "../../redux/reducers/cart/cart.actions";
 
 //selectors
-import { selectCartItemCount } from "../../redux/reducers/cart/cart.selectors";
+import {
+  selectCartItemCount,
+  selectCartItemTotal,
+} from "../../redux/reducers/cart/cart.selectors";
+
 import { selectUserTokenDecoded } from "../../redux/reducers/user/user.selectors";
 
 //router
@@ -33,6 +37,7 @@ import { ButtonsContainer, HeaderContainer, IconStyled } from "./header.style";
 const Header = () => {
   const dispatch = useDispatch();
   const cartItemCount = useSelector(selectCartItemCount);
+  const cartItemTotal = useSelector(selectCartItemTotal);
   const user = useSelector(selectUserTokenDecoded);
   return (
     <HeaderContainer>
@@ -79,6 +84,36 @@ const Header = () => {
             <Badge>{cartItemCount}</Badge>
             <IconStyled icon={faBagsShopping} size="2x" />
           </Link>
+          {cartItemCount > 0 && (
+            <span
+              style={{
+                position: "absolute",
+                fontSize: "12px",
+                bottom: "6px",
+                right: "7px",
+              }}
+            >
+              Dans votre panier :{" "}
+              <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+                {cartItemTotal} <small>€</small>
+              </span>
+            </span>
+          )}
+          {user && user.user.role === "admin" && (
+            <span
+              style={{
+                position: "absolute",
+                fontSize: "14px",
+                bottom: "-23px",
+                left: "7px",
+              }}
+            >
+              Bonjour Seigneur{" "}
+              <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+                {user.user.firstname} !
+              </span>
+            </span>
+          )}
         </div>
       </ButtonsContainer>
     </HeaderContainer>
