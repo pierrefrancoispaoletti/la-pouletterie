@@ -11,14 +11,21 @@ import ProductDetail from "../ProductDetail/ProductDetail";
 import { useSelector } from "react-redux";
 import { selectUserTokenDecoded } from "../../redux/reducers/user/user.selectors";
 import Register from "../../pages/Register/Register";
+import UserBar from "../UserTopBar/UserTopBar";
+import User from "../../pages/User/User";
+import Loader from "../Loader/Loader";
+import { selectLoading } from "../../redux/reducers/app/app.selectors";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
+  const isLoading = useSelector(selectLoading);
   return (
     <div>
       <Header />
       <Menu />
+      {user && user.user.role === "client" && <UserBar />}
       <LocalMessage />
+      {isLoading && <Loader />}
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route path="/produits/:category" element={<ProductsPage />} />
@@ -27,6 +34,7 @@ const App = () => {
           path="/inscription"
           element={!user ? <Register /> : <HomePage />}
         />
+        <Route path="/vos-infos" element={user ? <User /> : <HomePage />} />
         <Route path="/panier" element={<Checkout />} />
       </Routes>
       <ProductDetail />

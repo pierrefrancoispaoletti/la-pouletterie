@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../_consts/colors/colors";
 
 export const LoginContainer = styled.div`
   width: 100%;
@@ -12,5 +13,8 @@ export const FormContainer = styled.form`
   align-items: center;
   justify-content: center;
   margin: auto;
-  width: 60%;
+  width: 80%;
+  margin-bottom: 12px;
+  padding: 8px;
+  border-bottom: 2px solid ${colors.grey};
 `;

@@ -34,7 +34,7 @@ const CartControlButtons = ({ _id, product }) => {
     <>
       <ButtonContainer>
         <CustomButton
-          disabled={!getSpecificItemCount(_id, cart)}
+          isDisabled={!getSpecificItemCount(_id, cart)}
           type="button"
           method="delete"
           badge
@@ -56,7 +56,7 @@ const CartControlButtons = ({ _id, product }) => {
         <CustomButton
           type="button"
           badge
-          disabled={!getSpecificItemCount(_id, cart)}
+          isDisabled={!getSpecificItemCount(_id, cart)}
           onClick={() => dispatch(removeFromCart(_id))}
         >
           <FontAwesomeIcon icon={faTrashAlt} />

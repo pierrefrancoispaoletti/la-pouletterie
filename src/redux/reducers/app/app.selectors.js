@@ -8,3 +8,8 @@ export const selectOpenMenu = createSelector(
 );
 
 export const selectMessage = createSelector([selectApp], (app) => app.message);
+
+export const selectLoading = createSelector(
+  [selectApp],
+  (app) => app.isLoading
+);

@@ -43,10 +43,11 @@ const Login = () => {
           handleChange={handleChange}
         />
         <CustomButton
-          disabled={!credentials.email || !credentials.password}
+          positive
+          isDisabled={!credentials.email || !credentials.password}
           type="submit"
         >
-          Se connecter
+          <span>Se connecter</span>
         </CustomButton>
         <Link to="/inscription">Pas encore de compte ? Enregistrez vous !</Link>
       </FormContainer>

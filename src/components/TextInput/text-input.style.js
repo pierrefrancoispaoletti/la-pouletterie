@@ -11,7 +11,7 @@ const shrinkLabelStyles = css`
 export const GroupContainer = styled.div`
   position: relative;
   margin: auto 0;
-  width: 80%;
+  width: 100%;
 
   input[type="email"] {
     letter-spacing: 0.1em;

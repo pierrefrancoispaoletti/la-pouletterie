@@ -56,7 +56,9 @@ const isDisabled = (props) => {
   if (props.disabled) {
     return css`
       :disabled {
-        background: lightgrey;
+        background: ${colors.grey};
+        color: white;
+        border: 1px solid black;
         cursor: not-allowed;
       }
     `;
@@ -85,6 +87,26 @@ const isPaymentButton = (props) => {
     `;
   }
 };
+
+const buttonStyle = (props) => {
+  if (props.negative) {
+    return css`
+      background: ${colors.red};
+      border: 2px solid red;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 8px;
+    `;
+  }
+  if (props.positive) {
+    return css`
+      background: ${colors.green};
+      border: 2px solid green;
+      color: white;
+      font-weight: bold;
+    `;
+  }
+};
 export const CustommButtonStyled = styled.button`
   outline: none;
   border-radius: 50px;
@@ -101,4 +123,5 @@ export const CustommButtonStyled = styled.button`
   ${isDelete}
   ${isPaymentButton}
   ${isDisabled}
+  ${buttonStyle}
 `;
