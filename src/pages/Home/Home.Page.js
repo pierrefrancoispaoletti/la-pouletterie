@@ -13,12 +13,12 @@ const HomePage = () => {
   return (
     <main>
       {categories.map((category) => (
-        <>
+        <div key={category.slug}>
           <CategoryTitle>{category.name}</CategoryTitle>
           {products.map(
             (product) =>
               product.category === category.slug && (
-                <ProductItem {...product}>
+                <ProductItem {...product} key={product._id}>
                   <>
                     <CustomButton
                       type="button"
@@ -30,7 +30,7 @@ const HomePage = () => {
                 </ProductItem>
               )
           )}
-        </>
+        </div>
       ))}
     </main>
   );

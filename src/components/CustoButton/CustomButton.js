@@ -6,10 +6,7 @@ import { CustommButtonStyled } from "./custom-button.style";
 const CustomButton = ({ children, isDisabled, ...otherProps }) => {
   const isLoading = useSelector(selectLoading);
   return (
-    <CustommButtonStyled
-      disabled={isLoading && { ...isDisabled }}
-      {...otherProps}
-    >
+    <CustommButtonStyled disabled={isLoading || isDisabled} {...otherProps}>
       {children}
     </CustommButtonStyled>
   );

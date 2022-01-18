@@ -26,7 +26,7 @@ const Menu = () => {
     <NavMenuContainer className="nav-menu" open={menuOpen}>
       <NavMenuUl>
         {categories.map((category) => (
-          <NavMenuLi>
+          <NavMenuLi key={category.slug}>
             <NavLink
               onClick={() => dispatch(toggleMenu())}
               style={({ isActive }) =>
