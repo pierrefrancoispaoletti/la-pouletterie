@@ -19,6 +19,7 @@ import Suggestions from "../Suggestions/Suggestions";
 //styles
 import { ProductDetailContainer } from "./product-details.style";
 import CartControlButtons from "../CartControlButtons/CartControlButtons";
+import { localServerURI } from "../../_consts/server/server";
 
 const ProductDetail = () => {
   const selectedProduct = useSelector(selectSelectedProduct);
@@ -41,7 +42,7 @@ const ProductDetail = () => {
           <img
             width="100%"
             style={{ maxHeight: "250px" }}
-            src={imgURI}
+            src={`${localServerURI}/${imgURI}`}
             alt={name}
           />
         </div>

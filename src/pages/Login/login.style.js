@@ -12,7 +12,7 @@ export const FormContainer = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: auto;
+  margin: 0 auto;
   width: 80%;
   margin-bottom: 12px;
   padding: 8px;

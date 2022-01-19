@@ -26,3 +26,38 @@ export const fetchAllProducts = async (dispatch) => {
     );
   }
 };
+
+export const addProduct = async (userToken, formData, dispatch) => {
+  dispatch(toggleLoading());
+
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${localServerURI}/api/products/add`,
+      data: formData,
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: "Bearer " + userToken,
+      },
+    });
+    const {
+      data: { message, newProduct },
+    } = response;
+    console.log(newProduct);
+    dispatch(toggleLoading());
+    dispatch(
+      setMessage({
+        status: response.status === 200 ? "success" : "error",
+        message,
+      })
+    );
+  } catch (error) {
+    dispatch(toggleLoading());
+    dispatch(
+      setMessage({
+        status: "error",
+        message: "Il y à eu un probléme veuillez reessayer",
+      })
+    );
+  }
+};

@@ -14,14 +14,19 @@ import Register from "../../pages/Register/Register";
 import UserBar from "../UserTopBar/UserTopBar";
 import User from "../../pages/User/User";
 import Loader from "../Loader/Loader";
-import { selectLoading } from "../../redux/reducers/app/app.selectors";
+import {
+  selectIsAddProductModalOpen,
+  selectLoading,
+} from "../../redux/reducers/app/app.selectors";
 import { AppContainer } from "./app.style";
 import AdminTopBar from "../AdminTopBar/AdminTopBar";
 import { useFetchAllProducts } from "../../CustomHooks/useFetchAllProducts";
+import ProductModal from "../ProductModal/ProductModal";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
   const isLoading = useSelector(selectLoading);
+  const isAddProductModalOpen = useSelector(selectIsAddProductModalOpen);
   useFetchAllProducts();
   return (
     <AppContainer>
@@ -43,6 +48,9 @@ const App = () => {
         <Route path="/panier" element={<Checkout />} />
       </Routes>
       <ProductDetail />
+      {user && user.user.role === "admin" && isAddProductModalOpen && (
+        <ProductModal />
+      )}
     </AppContainer>
   );
 };

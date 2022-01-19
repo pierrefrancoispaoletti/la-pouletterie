@@ -14,7 +14,7 @@ import { AdminBarContainer } from "./admin-bar.style";
 const AdminBar = ({ ...product }) => {
   const user = useSelector(selectUserTokenDecoded);
   return (
-    user.user.role === "admin" && (
+    user?.user.role === "admin" && (
       <AdminBarContainer>
         <CustomButton positive isSmall style={{ background: "purple" }}>
           <FontAwesomeIcon icon={faEdit} size="1x" />

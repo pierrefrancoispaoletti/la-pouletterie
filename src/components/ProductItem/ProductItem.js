@@ -1,4 +1,5 @@
 import React from "react";
+import { localServerURI } from "../../_consts/server/server";
 import {
   ProductItemButtonContainer,
   ProductItemContainer,
@@ -12,7 +13,11 @@ const ProductItem = ({ children, ...product }) => {
     <ProductItemContainer>
       <ProductItemTop>
         <div>
-          <img src={product.imgURI} alt={product.name} width="80px" />
+          <img
+            src={`${localServerURI}/${product.imgURI}`}
+            alt={product.name}
+            width="80px"
+          />
         </div>
         <ProductItemTitleAndPrice>
           <h3>{product.name}</h3>

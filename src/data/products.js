@@ -3,7 +3,7 @@ export const products = [
   {
     name: "produit 1",
     _id: 1,
-    category: "nos-plats",
+    category: "nos-desserts",
     price: 10,
     hidden: false,
     imgURI: `${localServerURI}/uploads/pouletterie.jpeg`,
@@ -14,7 +14,7 @@ export const products = [
   {
     name: "produit 2",
     _id: 2,
-    category: "nos-plats",
+    category: "nos-desserts",
     price: 10,
     hidden: false,
     imgURI: `${localServerURI}/uploads/pouletterie.jpeg`,
@@ -25,7 +25,7 @@ export const products = [
   {
     name: "produit 3",
     _id: 3,
-    category: "nos-plats",
+    category: "nos-boissons",
     price: 10,
     hidden: false,
     imgURI: `${localServerURI}/uploads/pouletterie.jpeg`,
@@ -36,7 +36,7 @@ export const products = [
   {
     name: "produit 4",
     _id: 4,
-    category: "nos-plats",
+    category: "nos-accompagnements",
     price: 10,
     hidden: false,
     imgURI: `${localServerURI}/uploads/pouletterie.jpeg`,
