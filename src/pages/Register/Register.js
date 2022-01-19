@@ -11,6 +11,18 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [error, setError] = useState({
+    firstname: false,
+    lastname: false,
+    email: false,
+    phone: false,
+    addressFirstLine: false,
+    password: false,
+    confirmpassword: false,
+  });
+
+  const [isError, setIsError] = useState(true);
+
   const [newUser, setNewUser] = useState({
     firstname: "",
     lastname: "",
@@ -28,8 +40,32 @@ const Register = () => {
   };
 
   const handleSubmit = (e) => {
+    const { addressComplement, ...otherProps } = newUser;
     e.preventDefault();
-    registerQuerry(newUser, dispatch, navigate);
+    checkError(otherProps);
+    if (!isError) {
+      registerQuerry(newUser, dispatch, navigate);
+    }
+  };
+
+  console.log(isError);
+
+  const checkError = (object) => {
+    const keys = Object.keys(object);
+    keys.map((key) => {
+      if (!object[key]) {
+        setError((prevState) => ({ ...prevState, [key.toString()]: true }));
+      } else {
+        setError((prevState) => ({ ...prevState, [key.toString()]: false }));
+      }
+    });
+    const values = Object.values(error);
+    if (values.some((val) => val === true)) {
+      console.log(error);
+      setIsError(true);
+    } else {
+      setIsError(false);
+    }
   };
 
   return (
@@ -37,37 +73,46 @@ const Register = () => {
       <CategoryTitle>Inscription</CategoryTitle>
       <FormContainer onSubmit={handleSubmit}>
         <TextInput
+          // required
           type="text"
           name="firstname"
-          label="Prénom"
+          label="Prénom (Obligatoire)"
+          error={error.firstname}
           value={newUser.firstname}
           handleChange={handleChange}
         />
         <TextInput
+          // required
           type="text"
           name="lastname"
-          label="Nom"
+          label="Nom (Obligatoire)"
+          error={error.lastname}
           value={newUser.lastname}
           handleChange={handleChange}
         />
         <TextInput
+          // required
           type="email"
           name="email"
-          label="Email"
+          label="Email (Obligatoire)"
+          error={error.email}
           value={newUser.email}
           handleChange={handleChange}
         />
         <TextInput
           type="text"
           name="phone"
-          label="N° de télephone"
+          label="N° de télephone (Obligatoire)"
+          error={error.phone}
           value={newUser.phone}
           handleChange={handleChange}
         />
         <TextInput
+          // required
           type="text"
           name="addressFirstLine"
-          label="Adresse ligne 1"
+          label="Adresse (Obligatoire)"
+          error={error.addressFirstLine}
           value={newUser.addressFirstLine}
           handleChange={handleChange}
         />
@@ -79,16 +124,20 @@ const Register = () => {
           handleChange={handleChange}
         />
         <TextInput
+          // required
           type="password"
           name="password"
-          label="Mot de passe"
+          label="Mot de passe (Obligatoire)"
+          error={error.password}
           value={newUser.password}
           handleChange={handleChange}
         />
         <TextInput
+          // required
           type="password"
           name="confirmpassword"
-          label="Confirmez votre mot de passe"
+          label="Confirmation du MDP (Obligatoire)"
+          error={error.confirmpassword}
           value={newUser.confirmpassword}
           handleChange={handleChange}
         />

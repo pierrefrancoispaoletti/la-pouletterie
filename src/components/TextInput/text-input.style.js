@@ -1,12 +1,22 @@
 import styled, { css } from "styled-components";
+import { colors } from "../../_consts/colors/colors";
 
 const mainColor = "black";
+const errorColor = colors.red;
 
 const shrinkLabelStyles = css`
   top: -14px;
   font-size: 12px;
   color: ${mainColor};
 `;
+
+const isError = (props) => {
+  if (props.error) {
+    return css`
+      border-bottom: 3px solid ${errorColor};
+    `;
+  }
+};
 
 export const GroupContainer = styled.div`
   position: relative;
@@ -42,6 +52,7 @@ export const FormInputContainer = styled.input`
   &:focus ~ label {
     ${shrinkLabelStyles}
   }
+  ${isError}
 `;
 
 export const LabelContainer = styled.label`

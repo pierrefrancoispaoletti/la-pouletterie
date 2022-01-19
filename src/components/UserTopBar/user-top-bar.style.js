@@ -41,5 +41,16 @@ export const LinkButtonStyled = styled.button`
   .icon {
     margin-bottom: 15px;
   }
+  :active {
+    background: ${colors.grey};
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    .fa-primary {
+      color: white;
+    }
+    .fa-secondary {
+      color: black;
+    }
+  }
   ${isSelected}
 `;

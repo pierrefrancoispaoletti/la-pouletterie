@@ -7,6 +7,7 @@ import { selectProducts } from "../../redux/reducers/product/product.selectors";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import CustomButton from "../../components/CustoButton/CustomButton";
 import { selectProduct } from "../../redux/reducers/product/product.actions";
+import AdminBar from "../../components/AdminBar/AdminBar";
 
 const ProductsPage = () => {
   const params = useParams();
@@ -23,16 +24,19 @@ const ProductsPage = () => {
               {products.map(
                 (product) =>
                   product.category === paramCat && (
-                    <ProductItem {...product} key={product._id}>
-                      <>
-                        <CustomButton
-                          type="button"
-                          onClick={() => dispatch(selectProduct(product))}
-                        >
-                          Voir le produit
-                        </CustomButton>
-                      </>
-                    </ProductItem>
+                    <div key={product._id}>
+                      <AdminBar {...product} />
+                      <ProductItem {...product} key={product._id}>
+                        <>
+                          <CustomButton
+                            type="button"
+                            onClick={() => dispatch(selectProduct(product))}
+                          >
+                            Voir le produit
+                          </CustomButton>
+                        </>
+                      </ProductItem>
+                    </div>
                   )
               )}
             </div>

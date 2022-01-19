@@ -29,6 +29,7 @@ const Login = () => {
       <CategoryTitle>Connexion</CategoryTitle>
       <FormContainer onSubmit={handleSubmit}>
         <TextInput
+          required
           type="email"
           name="email"
           label="email"
@@ -36,6 +37,7 @@ const Login = () => {
           handleChange={handleChange}
         />
         <TextInput
+          required
           type="password"
           name="password"
           label="password"

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomButton from "../../components/CustoButton/CustomButton";
 import { selectProduct } from "../../redux/reducers/product/product.actions";
 import { selectProducts } from "../../redux/reducers/product/product.selectors";
+import AdminBar from "../../components/AdminBar/AdminBar";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -18,16 +19,17 @@ const HomePage = () => {
           {products.map(
             (product) =>
               product.category === category.slug && (
-                <ProductItem {...product} key={product._id}>
-                  <>
+                <div key={product._id}>
+                  <AdminBar {...product} />
+                  <ProductItem {...product}>
                     <CustomButton
                       type="button"
                       onClick={() => dispatch(selectProduct(product))}
                     >
                       Voir le produit
                     </CustomButton>
-                  </>
-                </ProductItem>
+                  </ProductItem>
+                </div>
               )
           )}
         </div>

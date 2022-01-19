@@ -16,15 +16,19 @@ import User from "../../pages/User/User";
 import Loader from "../Loader/Loader";
 import { selectLoading } from "../../redux/reducers/app/app.selectors";
 import { AppContainer } from "./app.style";
+import AdminTopBar from "../AdminTopBar/AdminTopBar";
+import { useFetchAllProducts } from "../../CustomHooks/useFetchAllProducts";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
   const isLoading = useSelector(selectLoading);
+  useFetchAllProducts();
   return (
     <AppContainer>
       <Header />
       <Menu />
       {user && user.user.role === "client" && <UserBar />}
+      {user && user.user.role === "admin" && <AdminTopBar />}
       <LocalMessage />
       {isLoading && <Loader />}
       <Routes>
