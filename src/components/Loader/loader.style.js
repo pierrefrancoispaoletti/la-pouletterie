@@ -1,7 +1,20 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { colors } from "../../_consts/colors/colors";
 
+const isLoading = (props) => {
+  if (props.loading) {
+    return css`
+      backdrop-filter: blur(15px);
+    `;
+  }
+};
 export const ChickenLoaderContainer = styled.div`
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  ${isLoading}
   .chicken-loader {
     /* Bird Wattle */
     z-index: 1000;
@@ -10,11 +23,11 @@ export const ChickenLoaderContainer = styled.div`
     border-left: 1.2rem solid ${colors.red};
     border-bottom: 1.2rem solid ${colors.red};
     border-radius: 50%;
+    position: fixed;
+    width: 10rem;
     height: 10rem;
     left: 50%;
-    position: fixed;
     top: 50%;
-    width: 10rem;
 
     &::before,
     &::after {

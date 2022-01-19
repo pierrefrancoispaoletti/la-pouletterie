@@ -1,3 +1,4 @@
+import { localServerURI } from "../_consts/server/server";
 export const products = [
   {
     name: "produit 1",
@@ -5,7 +6,7 @@ export const products = [
     category: "nos-plats",
     price: 10,
     hidden: false,
-    imgURI: "http://localhost:8080/uploads/pouletterie.jpeg",
+    imgURI: `${localServerURI}/uploads/pouletterie.jpeg`,
     description: "description 1",
     crossed: [2, 3, 4, 5],
     allergenes: [],
@@ -16,7 +17,7 @@ export const products = [
     category: "nos-plats",
     price: 10,
     hidden: false,
-    imgURI: "http://localhost:8080/uploads/pouletterie.jpeg",
+    imgURI: `${localServerURI}/uploads/pouletterie.jpeg`,
     description: "description 2",
     crossed: [2, 3, 4, 5],
     allergenes: [],
@@ -27,7 +28,7 @@ export const products = [
     category: "nos-plats",
     price: 10,
     hidden: false,
-    imgURI: "http://localhost:8080/uploads/pouletterie.jpeg",
+    imgURI: `${localServerURI}/uploads/pouletterie.jpeg`,
     description: "description 3",
     crossed: [2, 3, 4, 5],
     allergenes: [],
@@ -38,7 +39,7 @@ export const products = [
     category: "nos-plats",
     price: 10,
     hidden: false,
-    imgURI: "http://localhost:8080/uploads/pouletterie.jpeg",
+    imgURI: `${localServerURI}/uploads/pouletterie.jpeg`,
     description: "description 4",
     crossed: [2, 3, 4, 5, 2, 3, 4, 5],
     allergenes: [],

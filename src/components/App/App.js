@@ -15,12 +15,13 @@ import UserBar from "../UserTopBar/UserTopBar";
 import User from "../../pages/User/User";
 import Loader from "../Loader/Loader";
 import { selectLoading } from "../../redux/reducers/app/app.selectors";
+import { AppContainer } from "./app.style";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
   const isLoading = useSelector(selectLoading);
   return (
-    <div>
+    <AppContainer>
       <Header />
       <Menu />
       {user && user.user.role === "client" && <UserBar />}
@@ -38,7 +39,7 @@ const App = () => {
         <Route path="/panier" element={<Checkout />} />
       </Routes>
       <ProductDetail />
-    </div>
+    </AppContainer>
   );
 };
 
