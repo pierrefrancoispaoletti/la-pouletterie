@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     message: "",
   },
   isAddProductModalOpen: false,
+  isUpdateProductModalOpen: false,
 };
 
 export const appReducer = (state = INITIAL_STATE, action) => {
@@ -31,6 +32,11 @@ export const appReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isAddProductModalOpen: !state.isAddProductModalOpen,
+      };
+    case appActionTypes.TOGGLE_UPDATE_PRODUCT_MODAL:
+      return {
+        ...state,
+        isUpdateProductModalOpen: !state.isUpdateProductModalOpen,
       };
     default:
       return state;

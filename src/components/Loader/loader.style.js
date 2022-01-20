@@ -12,12 +12,12 @@ export const ChickenLoaderContainer = styled.div`
   height: 100%;
   width: 100vw;
   position: fixed;
-  z-index: 1000;
+  z-index: 20;
   top: 0;
   ${isLoading}
   .chicken-loader {
     /* Bird Wattle */
-    z-index: 1000;
+    z-index: 20;
     animation: birdWattle 4s linear infinite;
     border: 1.2rem solid transparent;
     border-left: 1.2rem solid ${colors.red};

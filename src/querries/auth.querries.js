@@ -27,7 +27,7 @@ export const loginQuerry = async (credentials, dispatch) => {
     dispatch(
       setMessage({
         status: "error",
-        message: "Il y à eu un probléme veuillez reessayer",
+        message: error.response.data.message,
       })
     );
   }
@@ -70,7 +70,7 @@ export const registerQuerry = async (newUserObject, dispatch, navigate) => {
     dispatch(
       setMessage({
         status: "error",
-        message: "Il y à eu un probléme veuillez reessayer",
+        message: error.response.data.message,
       })
     );
   }
@@ -109,7 +109,7 @@ export const updateUser = async (userToken, update, dispatch) => {
     dispatch(
       setMessage({
         status: "error",
-        message: "Il y à eu un probléme veuillez reessayer",
+        message: error.response.data.message,
       })
     );
   }
@@ -141,7 +141,7 @@ export const verifyToken = async (userToken, dispatch) => {
     dispatch(
       setMessage({
         status: "error",
-        message: "Il y à eu un probléme veuillez reessayer",
+        message: error.response.data.message,
       })
     );
     return false;
@@ -174,7 +174,7 @@ export const deleteUser = async (_id, userToken, dispatch) => {
     dispatch(
       setMessage({
         status: "error",
-        message: "Il y à eu un probléme veuillez reessayer",
+        message: error.response.data.message,
       })
     );
   }

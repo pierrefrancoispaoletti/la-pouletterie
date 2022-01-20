@@ -22,6 +22,10 @@ export const ProductModalContainer = styled.div`
   height: 100%;
   overflow: scroll;
   ${isOpen}
+  & input[type="file"] {
+    margin-bottom: 12px;
+    width: 100%;
+  }
 `;
 
 export const CheckboxContainer = styled.div`
@@ -30,4 +34,18 @@ export const CheckboxContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: 12px;
+`;
+
+export const SelectContainer = styled.select`
+  text-align: left;
+  width: 100%;
+  height: 35px;
+  background: white;
+  color: gray;
+  font-size: 1.1em;
+  border: none;
+  outline: none;
+  margin-bottom: 12px;
+  border-bottom: 1px solid black;
 `;

@@ -1,39 +1,31 @@
 import React, { useEffect, useState } from "react";
-//redux
 import { useDispatch, useSelector } from "react-redux";
-
-//redux actions
-import { toggleAddProductModal } from "../../redux/reducers/app/app.actions";
-
-//selectors
-import { selectIsAddProductModalOpen } from "../../redux/reducers/app/app.selectors";
-import { selectProducts } from "../../redux/reducers/product/product.selectors";
+import { verifyToken } from "../../querries/auth.querries";
+import { selectIsUpdateProductModalOpen } from "../../redux/reducers/app/app.selectors";
+import {
+  selectCrossedProductsToEdit,
+  selectProducts,
+  selectProductToEdit,
+} from "../../redux/reducers/product/product.selectors";
 import { selectUserToken } from "../../redux/reducers/user/user.selectors";
-
-//data source
-import { categories } from "../../data/categories";
-
-//Components
-import CategoryTitle from "../CategoryTitle/CategoryTitle";
-import CustomButton from "../CustoButton/CustomButton";
-import TextInput from "../TextInput/TextInput";
-
-// styles
 import {
   CheckboxContainer,
   ProductModalContainer,
   SelectContainer,
-} from "./product-modal.style";
+} from "../ProductModal/product-modal.style";
+import CategoryTitle from "../CategoryTitle/CategoryTitle";
 import { FormContainer } from "../../pages/Login/login.style";
-
-//querries
-import { verifyToken } from "../../querries/auth.querries";
-import { addProduct } from "../../querries/product.querries";
+import TextInput from "../TextInput/TextInput";
+import { categories } from "../../data/categories";
+import CustomButton from "../CustoButton/CustomButton";
+import { toggleUpdateProductModal } from "../../redux/reducers/app/app.actions";
+import { updateProduct } from "../../querries/product.querries";
 
 //dependance
 import Resizer from "react-image-file-resizer";
-import { clearForm } from "../../utils/utils";
+
 const INITIAL_STATE = {
+  _id: "",
   name: "",
   price: "",
   description: "",
@@ -43,15 +35,19 @@ const INITIAL_STATE = {
   allergenes: [],
   hidden: false,
 };
-const ProductModal = () => {
+
+const UpdateProductModal = () => {
   const dispatch = useDispatch();
+
   const products = useSelector(selectProducts);
+  const productToEdit = useSelector(selectProductToEdit);
+  const crossedProductsInEditProduct = useSelector(selectCrossedProductsToEdit);
   const token = useSelector(selectUserToken);
-  const isAddProductModalOpen = useSelector(selectIsAddProductModalOpen);
+  const isUpdateProductModalOpen = useSelector(selectIsUpdateProductModalOpen);
 
-  const [newProduct, setNewProduct] = useState(INITIAL_STATE);
+  const [updatedProduct, setUpdatedProduct] = useState(INITIAL_STATE);
 
-  const selectProductsInCrossed = products.filter(
+  let allProductsToShowInCrossed = products.filter(
     (product) =>
       product.category === "nos-boissons" ||
       product.category === "nos-accompagnements" ||
@@ -59,23 +55,39 @@ const ProductModal = () => {
   );
 
   useEffect(() => {
-    setNewProduct((prevState) => ({
-      ...prevState,
+    let filteredCrossedValues = () =>
+      allProductsToShowInCrossed.filter((i) => {
+        if (crossedProductsInEditProduct?.length > 0) {
+          return crossedProductsInEditProduct.some((j) => {
+            if (i._id !== j._id) {
+              return i;
+            } else {
+              return j;
+            }
+          });
+        }
+        return allProductsToShowInCrossed.map((p) => (p.isChecked = false));
+      });
+
+    setUpdatedProduct({
+      ...productToEdit,
       crossed: [
-        ...selectProductsInCrossed.map((p) => ({ ...p, isChecked: false })),
+        ...filteredCrossedValues()?.map((p) =>
+          p.isChecked ? p : { ...p, isChecked: false }
+        ),
       ],
-    }));
-  }, []);
+    });
+  }, [productToEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewProduct({ ...newProduct, [name]: value });
+    setUpdatedProduct({ ...updatedProduct, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    let object = { ...newProduct };
+    let object = { ...updatedProduct };
     let crossed = object.crossed
       .flatMap((p) => {
         const { _id, isChecked, ...otherProps } = p;
@@ -83,6 +95,7 @@ const ProductModal = () => {
       })
       .filter((i) => i.isChecked);
     object.crossed = [...crossed];
+    formData.append("_id", object._id);
     formData.append("name", object.name);
     formData.append("price", object.price);
     formData.append("description", object.description);
@@ -95,8 +108,7 @@ const ProductModal = () => {
     let validToken = await verifyToken(token, dispatch);
 
     if (validToken) {
-      addProduct(validToken, formData, dispatch);
-      clearForm(setNewProduct, INITIAL_STATE);
+      updateProduct(validToken, formData, dispatch);
     }
   };
 
@@ -109,20 +121,20 @@ const ProductModal = () => {
       100,
       0,
       (uri) => {
-        setNewProduct({ ...newProduct, imgURI: uri });
+        setUpdatedProduct({ ...updatedProduct, imgURI: uri });
       },
       "file"
     );
   };
   return (
-    <ProductModalContainer open={isAddProductModalOpen}>
-      <CategoryTitle>Ajouter un produit</CategoryTitle>
+    <ProductModalContainer open={isUpdateProductModalOpen}>
+      <CategoryTitle>Editer un produit</CategoryTitle>
       <FormContainer onSubmit={handleSubmit}>
         <TextInput
           required
           type="text"
           name="name"
-          value={newProduct.name}
+          value={updatedProduct.name}
           label="Nom"
           handleChange={handleChange}
         />
@@ -133,14 +145,14 @@ const ProductModal = () => {
           min={0}
           pattern="\\d*"
           name="price"
-          value={newProduct.price}
+          value={updatedProduct.price}
           label="Prix"
           handleChange={handleChange}
         />
         <TextInput
           type="text"
           name="description"
-          value={newProduct.description}
+          value={updatedProduct.description}
           label="Description"
           handleChange={handleChange}
         />
@@ -156,7 +168,7 @@ const ProductModal = () => {
           <option value="">Selectionez une categorie</option>
           {categories.map((category) => (
             <option
-              selected={newProduct.category === category.slug}
+              selected={updatedProduct.category === category.slug}
               value={category.slug}
             >
               {category.name}
@@ -165,19 +177,24 @@ const ProductModal = () => {
         </SelectContainer>
         <span style={{ alignSelf: "flex-start" }}>Suggestions</span>
         <CheckboxContainer>
-          {newProduct.crossed.map((product) => (
+          {updatedProduct?.crossed?.map((product) => (
             <div>
               <label htmlFor={product._id}>{product.name}</label>
               <input
-                id={product.id}
+                id={product._id}
                 type="checkbox"
                 checked={product.isChecked}
-                onChange={() =>
-                  setNewProduct((prevState) => ({
-                    ...prevState,
-                    ...(product.isChecked = !product.isChecked),
-                  }))
-                }
+                onChange={() => {
+                  const index = updatedProduct.crossed.findIndex(
+                    (i) => i._id === product._id
+                  );
+                  let newProduct = { ...updatedProduct.crossed[index] };
+                  let newCrossed = [...updatedProduct.crossed];
+                  newProduct.isChecked = !product.isChecked;
+                  newCrossed.splice(index, 1);
+                  newCrossed = [...newCrossed, newProduct];
+                  setUpdatedProduct({ ...updatedProduct, crossed: newCrossed });
+                }}
               />
             </div>
           ))}
@@ -187,19 +204,19 @@ const ProductModal = () => {
         </label>
         <input
           type="file"
-          files={newProduct.imgURI}
+          files={updatedProduct.imgURI}
           name="imgURI"
           accept="image/*"
           onChange={(e) => setImage(e)}
         />
         <CustomButton type="submit" positive>
-          Ajouter
+          Editer
         </CustomButton>
       </FormContainer>
       <CustomButton
         type="button"
         negative
-        onClick={() => dispatch(toggleAddProductModal())}
+        onClick={() => dispatch(toggleUpdateProductModal())}
       >
         Annuler
       </CustomButton>
@@ -207,4 +224,4 @@ const ProductModal = () => {
   );
 };
 
-export default ProductModal;
+export default UpdateProductModal;

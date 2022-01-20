@@ -18,3 +18,8 @@ export const selectIsAddProductModalOpen = createSelector(
   [selectApp],
   (app) => app.isAddProductModalOpen
 );
+
+export const selectIsUpdateProductModalOpen = createSelector(
+  [selectApp],
+  (app) => app.isUpdateProductModalOpen
+);

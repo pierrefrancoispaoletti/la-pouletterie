@@ -31,7 +31,6 @@ export const addProductToCart = (product, cart) => {
 export const substractProductFromCart = (_id, cart) => {
   let newCart = [...cart];
   let index = newCart.findIndex((item) => item._id === _id);
-  console.log(newCart[index].quantity);
   if (index !== -1) {
     newCart[index].quantity -= 1;
     cart = [...newCart];

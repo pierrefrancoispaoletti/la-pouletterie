@@ -42,7 +42,7 @@ const ProductDetail = () => {
           <img
             width="100%"
             style={{ maxHeight: "250px" }}
-            src={`${localServerURI}/${imgURI}`}
+            src={`${localServerURI}/uploads/${imgURI}`}
             alt={name}
           />
         </div>

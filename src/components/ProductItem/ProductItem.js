@@ -14,9 +14,10 @@ const ProductItem = ({ children, ...product }) => {
       <ProductItemTop>
         <div>
           <img
-            src={`${localServerURI}/${product.imgURI}`}
+            src={`${localServerURI}/uploads/${product.imgURI}`}
             alt={product.name}
             width="80px"
+            height="80px"
           />
         </div>
         <ProductItemTitleAndPrice>
