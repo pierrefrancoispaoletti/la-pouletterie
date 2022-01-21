@@ -12,6 +12,7 @@ import {
 } from "../../querries/auth.querries";
 import { setMessage } from "../../redux/reducers/app/app.actions";
 import { emptyCart } from "../../redux/reducers/cart/cart.actions";
+import { setClientSecret } from "../../redux/reducers/payment/payment.actions";
 import { logout } from "../../redux/reducers/user/user.actions";
 import {
   selectUserToken,
@@ -60,6 +61,7 @@ const User = () => {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(emptyCart());
+    dispatch(setClientSecret(""));
     dispatch(
       setMessage({
         status: "success",

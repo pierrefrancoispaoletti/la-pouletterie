@@ -24,6 +24,7 @@ import AdminTopBar from "../AdminTopBar/AdminTopBar";
 import { useFetchAllProducts } from "../../CustomHooks/useFetchAllProducts";
 import ProductModal from "../ProductModal/ProductModal";
 import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
+import Payment from "../../pages/Payment/Payment";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
@@ -49,6 +50,7 @@ const App = () => {
         />
         <Route path="/vos-infos" element={user ? <User /> : <HomePage />} />
         <Route path="/panier" element={<Checkout />} />
+        <Route path="/paiement" element={user ? <Payment /> : <HomePage />} />
       </Routes>
       <ProductDetail />
       {user && user.user.role === "admin" && isAddProductModalOpen && (

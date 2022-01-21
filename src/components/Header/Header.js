@@ -33,6 +33,7 @@ import Badge from "../Badge/Badge";
 
 //styles
 import { ButtonsContainer, HeaderContainer, IconStyled } from "./header.style";
+import { setClientSecret } from "../../redux/reducers/payment/payment.actions";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ const Header = () => {
             onClick={() => {
               dispatch(logout());
               dispatch(emptyCart());
+              dispatch(setClientSecret(""));
               dispatch(
                 setMessage({
                   status: "success",
@@ -96,21 +98,6 @@ const Header = () => {
               Dans votre panier :{" "}
               <span style={{ fontSize: "14px", fontWeight: "bold" }}>
                 {cartItemTotal} <small>€</small>
-              </span>
-            </span>
-          )}
-          {user && user.user.role === "admin" && (
-            <span
-              style={{
-                position: "absolute",
-                fontSize: "14px",
-                bottom: "-23px",
-                left: "7px",
-              }}
-            >
-              Bonjour Seigneur{" "}
-              <span style={{ fontSize: "14px", fontWeight: "bold" }}>
-                {user.user.firstname} !
               </span>
             </span>
           )}

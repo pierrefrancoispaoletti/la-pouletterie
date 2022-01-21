@@ -41,6 +41,7 @@ const INITIAL_STATE = {
   imgURI: "",
   crossed: [],
   allergenes: [],
+  stock: "",
   hidden: false,
 };
 const ProductModal = () => {
@@ -142,6 +143,13 @@ const ProductModal = () => {
           name="description"
           value={newProduct.description}
           label="Description"
+          handleChange={handleChange}
+        />
+        <TextInput
+          type="number"
+          name="stock"
+          value={newProduct.stock}
+          label="Stock"
           handleChange={handleChange}
         />
         <label style={{ alignSelf: "flex-start" }} htmlFor="category-selector">

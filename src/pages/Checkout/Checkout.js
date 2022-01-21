@@ -12,11 +12,14 @@ import {
   CheckoutTitle,
   NoItemMessage,
 } from "./checkout.style";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useCreatePaymentIntent from "../../CustomHooks/useCreatePaymentIntent";
 
 const Checkout = () => {
   const cart = useSelector(selectCartItems);
   const total = useSelector(selectCartItemTotal);
+  useCreatePaymentIntent();
+  const navigate = useNavigate();
   return cart.length ? (
     <CheckoutContainer>
       <CheckoutTitle>
@@ -31,7 +34,7 @@ const Checkout = () => {
         </ProductItem>
       ))}
       <div style={{ height: "76px" }} />
-      <CustomButton type="button" payment>
+      <CustomButton type="button" payment onClick={() => navigate("/paiement")}>
         Passer au Paiement
       </CustomButton>
     </CheckoutContainer>
