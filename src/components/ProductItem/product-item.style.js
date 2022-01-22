@@ -1,9 +1,23 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
+const isCart = (props) => {
+  if (props.isCart) {
+    return css`
+      flex-direction: row;
+      div > img {
+        width: 80px;
+        height: 80px;
+        margin-right: 8px;
+      }
+    `;
+  }
+};
 export const ProductItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: ${(props) =>
+    props.isCart ? "flex-start" : "space-between"};
+  min-height: ${(props) => (props.isCart ? "0" : "485px")};
   align-items: center;
   width: 100%;
   padding: 12px;
@@ -11,11 +25,16 @@ export const ProductItemContainer = styled.div`
 
 export const ProductItemTop = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   min-height: 100%;
+  div > img {
+    width: 300px;
+    height: 300px;
+  }
+  ${isCart}
 `;
 
 export const ProductItemTitleAndPrice = styled.div`
@@ -38,6 +57,8 @@ export const ProductItemTitleAndPrice = styled.div`
 export const ProductItemDescription = styled.div`
   width: 100%;
   margin-left: 18px;
+  height: 150px;
+  overflow: auto;
 `;
 
 export const ProductItemButtonContainer = styled.div`

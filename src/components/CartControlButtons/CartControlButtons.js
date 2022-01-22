@@ -30,6 +30,7 @@ import { ButtonContainer } from "./cart-control-buttons.style";
 const CartControlButtons = ({ _id, product }) => {
   const cart = useSelector(selectCartItems);
   const dispatch = useDispatch();
+
   return (
     <>
       <ButtonContainer>

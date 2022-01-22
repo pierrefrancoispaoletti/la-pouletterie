@@ -28,11 +28,14 @@ const Checkout = () => {
           Total : {total} <small>€</small>
         </span>
       </CheckoutTitle>
-      {cart.map((item) => (
-        <ProductItem {...item}>
-          <CartControlButtons _id={item._id} product={item} />
-        </ProductItem>
-      ))}
+      {cart.map(
+        (item) =>
+          item && (
+            <ProductItem {...item} isCart>
+              <CartControlButtons _id={item._id} product={item} />
+            </ProductItem>
+          )
+      )}
       <div style={{ height: "76px" }} />
       <CustomButton type="button" payment onClick={() => navigate("/paiement")}>
         Passer au Paiement

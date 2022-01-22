@@ -1,5 +1,6 @@
 import React from "react";
 import { localServerURI } from "../../_consts/server/server";
+import CartControlButtons from "../CartControlButtons/CartControlButtons";
 import {
   ProductItemButtonContainer,
   ProductItemContainer,
@@ -8,29 +9,32 @@ import {
   ProductItemTop,
 } from "./product-item.style";
 
-const ProductItem = ({ children, ...product }) => {
+const ProductItem = ({ children, isCart, ...product }) => {
   return (
-    <ProductItemContainer>
-      <ProductItemTop>
+    <ProductItemContainer isCart={isCart}>
+      <ProductItemTop isCart={isCart}>
         <div>
           <img
             src={`${localServerURI}/uploads/${product.imgURI}`}
-            alt={product.name}
-            width="80px"
-            height="80px"
+            alt={product?.name}
           />
         </div>
         <ProductItemTitleAndPrice>
-          <h3>{product.name}</h3>
+          <h3>{product?.name}</h3>
           <span>
-            {product.price.toFixed(2)}
+            {product?.price?.toFixed(2)}
             <small>€</small>
           </span>
         </ProductItemTitleAndPrice>
       </ProductItemTop>
-      <ProductItemDescription>
-        <p>{product.description}</p>
-      </ProductItemDescription>
+      {!isCart && (
+        <>
+          <CartControlButtons _id={product._id} product={product} />
+          <ProductItemDescription>
+            <p>{product.description}</p>
+          </ProductItemDescription>
+        </>
+      )}
       <ProductItemButtonContainer>{children}</ProductItemButtonContainer>
     </ProductItemContainer>
   );

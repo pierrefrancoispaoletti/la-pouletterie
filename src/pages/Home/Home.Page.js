@@ -7,6 +7,7 @@ import CustomButton from "../../components/CustoButton/CustomButton";
 import { selectProduct } from "../../redux/reducers/product/product.actions";
 import { selectProducts } from "../../redux/reducers/product/product.selectors";
 import AdminBar from "../../components/AdminBar/AdminBar";
+import { ProductsContainer } from "./home.style";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -16,22 +17,24 @@ const HomePage = () => {
       {categories.map((category) => (
         <div key={category.slug}>
           <CategoryTitle>{category.name}</CategoryTitle>
-          {products.map(
-            (product) =>
-              product.category === category.slug && (
-                <div key={product._id}>
-                  <AdminBar {...product} />
-                  <ProductItem {...product}>
-                    <CustomButton
-                      type="button"
-                      onClick={() => dispatch(selectProduct(product))}
-                    >
-                      Voir le produit
-                    </CustomButton>
-                  </ProductItem>
-                </div>
-              )
-          )}
+          <ProductsContainer>
+            {products.map(
+              (product) =>
+                product.category === category.slug && (
+                  <div key={product._id}>
+                    <AdminBar {...product} />
+                    <ProductItem {...product}>
+                      <CustomButton
+                        type="button"
+                        onClick={() => dispatch(selectProduct(product))}
+                      >
+                        Voir le produit
+                      </CustomButton>
+                    </ProductItem>
+                  </div>
+                )
+            )}
+          </ProductsContainer>
         </div>
       ))}
     </main>

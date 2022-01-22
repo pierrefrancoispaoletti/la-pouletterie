@@ -91,6 +91,7 @@ const ProductModal = () => {
     formData.append("category", object.category);
     formData.append("imgURI", object.imgURI);
     formData.append("allergenes", JSON.stringify(object.allergenes));
+    formData.append("stock", object.stock || 1);
     formData.append("hidden", object.hidden);
 
     let validToken = await verifyToken(token, dispatch);
@@ -148,6 +149,9 @@ const ProductModal = () => {
         <TextInput
           type="number"
           name="stock"
+          step={1}
+          min={0}
+          pattern="\\d*"
           value={newProduct.stock}
           label="Stock"
           handleChange={handleChange}

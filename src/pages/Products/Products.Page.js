@@ -8,6 +8,7 @@ import ProductItem from "../../components/ProductItem/ProductItem";
 import CustomButton from "../../components/CustoButton/CustomButton";
 import { selectProduct } from "../../redux/reducers/product/product.actions";
 import AdminBar from "../../components/AdminBar/AdminBar";
+import { ProductsContainer } from "../Home/home.style";
 
 const ProductsPage = () => {
   const params = useParams();
@@ -21,24 +22,26 @@ const ProductsPage = () => {
           category.slug === paramCat && (
             <div key={category.slug}>
               <CategoryTitle>{category.name}</CategoryTitle>
-              {products.map(
-                (product) =>
-                  product.category === paramCat && (
-                    <div key={product._id}>
-                      <AdminBar {...product} />
-                      <ProductItem {...product} key={product._id}>
-                        <>
-                          <CustomButton
-                            type="button"
-                            onClick={() => dispatch(selectProduct(product))}
-                          >
-                            Voir le produit
-                          </CustomButton>
-                        </>
-                      </ProductItem>
-                    </div>
-                  )
-              )}
+              <ProductsContainer>
+                {products.map(
+                  (product) =>
+                    product.category === paramCat && (
+                      <div key={product._id}>
+                        <AdminBar {...product} />
+                        <ProductItem {...product} key={product._id}>
+                          <>
+                            <CustomButton
+                              type="button"
+                              onClick={() => dispatch(selectProduct(product))}
+                            >
+                              Voir le produit
+                            </CustomButton>
+                          </>
+                        </ProductItem>
+                      </div>
+                    )
+                )}
+              </ProductsContainer>
             </div>
           )
       )}

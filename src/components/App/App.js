@@ -25,6 +25,7 @@ import { useFetchAllProducts } from "../../CustomHooks/useFetchAllProducts";
 import ProductModal from "../ProductModal/ProductModal";
 import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
 import Payment from "../../pages/Payment/Payment";
+import UserOrders from "../../pages/UserOrders/UserOrders";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
@@ -49,6 +50,10 @@ const App = () => {
           element={!user ? <Register /> : <HomePage />}
         />
         <Route path="/vos-infos" element={user ? <User /> : <HomePage />} />
+        <Route
+          path="/vos-commandes"
+          element={user ? <UserOrders /> : <HomePage />}
+        />
         <Route path="/panier" element={<Checkout />} />
         <Route path="/paiement" element={user ? <Payment /> : <HomePage />} />
       </Routes>
