@@ -143,3 +143,36 @@ export const deleteProduct = async (userToken, productID, dispatch) => {
     );
   }
 };
+
+export const hideProduct = async (userToken, product, dispatch) => {
+  dispatch(toggleLoading());
+  let update = { ...product };
+  update.hidden = !product.hidden;
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${localServerURI}/api/products/hide`,
+      headers: { Authorization: `Bearer ${userToken}` },
+      data: { update },
+    });
+    const {
+      data: { message, updatedProduct },
+    } = response;
+    dispatch(toggleLoading());
+    dispatch(updateProductAction(updatedProduct));
+    dispatch(
+      setMessage({
+        status: response.status === 200 ? "success" : "error",
+        message,
+      })
+    );
+  } catch (error) {
+    dispatch(toggleLoading());
+    dispatch(
+      setMessage({
+        status: "error",
+        message: error.response.data.message,
+      })
+    );
+  }
+};

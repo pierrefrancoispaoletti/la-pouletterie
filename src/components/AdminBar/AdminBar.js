@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { verifyToken } from "../../querries/auth.querries";
-import { deleteProduct } from "../../querries/product.querries";
+import { deleteProduct, hideProduct } from "../../querries/product.querries";
 import { toggleUpdateProductModal } from "../../redux/reducers/app/app.actions";
 import { selectProductToEdit } from "../../redux/reducers/product/product.actions";
 import {
@@ -29,6 +29,13 @@ const AdminBar = ({ ...product }) => {
       deleteProduct(validToken, product._id, dispatch);
     }
   };
+
+  const handleHideProduct = async () => {
+    const validToken = await verifyToken(userToken, dispatch);
+    if (validToken) {
+      hideProduct(validToken, product, dispatch);
+    }
+  };
   return (
     user?.user.role === "admin" && (
       <AdminBarContainer>
@@ -43,7 +50,12 @@ const AdminBar = ({ ...product }) => {
         >
           <FontAwesomeIcon icon={faEdit} size="1x" />
         </CustomButton>
-        <CustomButton positive isSmall style={{ background: "grey" }}>
+        <CustomButton
+          positive
+          isSmall
+          style={{ background: "grey" }}
+          onClick={() => handleHideProduct()}
+        >
           <FontAwesomeIcon
             icon={product.hidden ? faEye : faEyeSlash}
             size="1x"

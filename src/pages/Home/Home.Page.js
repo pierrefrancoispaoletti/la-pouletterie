@@ -8,10 +8,12 @@ import { selectProduct } from "../../redux/reducers/product/product.actions";
 import { selectProducts } from "../../redux/reducers/product/product.selectors";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import { ProductsContainer } from "./home.style";
+import { selectUserTokenDecoded } from "../../redux/reducers/user/user.selectors";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
+  const user = useSelector(selectUserTokenDecoded);
   return (
     <main>
       {categories.map((category) => (
@@ -23,14 +25,20 @@ const HomePage = () => {
                 product.category === category.slug && (
                   <div key={product._id}>
                     <AdminBar {...product} />
-                    <ProductItem {...product}>
-                      <CustomButton
-                        type="button"
-                        onClick={() => dispatch(selectProduct(product))}
-                      >
-                        Voir le produit
-                      </CustomButton>
-                    </ProductItem>
+                    {/* si le produit n'est pas caché ou que 
+                    l'utilisateur est admin montrer le produit 
+                    sinon on ne le montre pas */}
+                    {(!product.hidden ||
+                      (user && user.user.role === "admin")) && (
+                      <ProductItem {...product}>
+                        <CustomButton
+                          type="button"
+                          onClick={() => dispatch(selectProduct(product))}
+                        >
+                          Voir le produit
+                        </CustomButton>
+                      </ProductItem>
+                    )}
                   </div>
                 )
             )}

@@ -20,7 +20,9 @@ const ProductItem = ({ children, isCart, ...product }) => {
           />
         </div>
         <ProductItemTitleAndPrice>
-          <h3>{product?.name}</h3>
+          <h3>
+            {product.hidden ? `CACHE : ${product?.name}` : `${product.name}`}
+          </h3>
           <span>
             {product?.price?.toFixed(2)}
             <small>€</small>
