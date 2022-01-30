@@ -18,6 +18,7 @@ import {
 } from "./checkout-form.style";
 import { selectClientSecret } from "../../redux/reducers/payment/payment.selectors";
 import { useNavigate } from "react-router-dom";
+import { emptyCart } from "../../redux/reducers/cart/cart.actions";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -59,6 +60,7 @@ export default function CheckoutForm() {
             dispatch(
               setMessage({ status: "success", message: "Paiement réussi" })
             );
+            dispatch(emptyCart());
             setTimeout(() => {
               navigate("/vos-commandes");
             }, 3000);
