@@ -6,10 +6,9 @@ import {
   selectUserTokenDecoded,
 } from "../redux/reducers/user/user.selectors";
 
-export const useFetchUserOrdersByUserid = async () => {
+export const useFetchUserOrdersByUserid = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUserTokenDecoded);
-
   const token = useSelector(selectUserToken);
   useEffect(() => {
     fetchOrdersByUserId(user.user._id, token, dispatch);

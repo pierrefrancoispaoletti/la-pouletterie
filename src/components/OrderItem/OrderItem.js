@@ -7,7 +7,7 @@ import {
 } from "./order-item.style";
 
 const OrderItem = ({ ...order }) => {
-  const { date, products } = order;
+  const { date, products, status } = order;
   console.log(products);
   return (
     <OrderItemContainer>
@@ -24,6 +24,7 @@ const OrderItem = ({ ...order }) => {
       <DetailsStyled>
         <ItemOrderUl>
           <summary>
+            <span>status de la commande: {status}</span>
             {products.map(({ _id: { name, price }, quantity }) => (
               <li>
                 <div>

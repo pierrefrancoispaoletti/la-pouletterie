@@ -109,16 +109,17 @@ const User = () => {
           handleChange={handleChange}
         />
         <TextInput
+          id="address"
           type="text"
           name="addressFirstLine"
-          label="Adresse ligne 1"
+          label="Adresse"
           value={updatedUser.addressFirstLine}
           handleChange={handleChange}
         />
         <TextInput
           type="text"
           name="addressComplement"
-          label="Adresse (complément)"
+          label="Code Postal"
           value={updatedUser.addressComplement}
           handleChange={handleChange}
         />

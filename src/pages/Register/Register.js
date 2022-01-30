@@ -17,6 +17,7 @@ const Register = () => {
     email: false,
     phone: false,
     addressFirstLine: false,
+    addressComplement: false,
     password: false,
     confirmpassword: false,
   });
@@ -119,7 +120,7 @@ const Register = () => {
         <TextInput
           type="text"
           name="addressComplement"
-          label="Adresse (complément)"
+          label="Code Postal (Obligatoire)"
           value={newUser.addressComplement}
           handleChange={handleChange}
         />

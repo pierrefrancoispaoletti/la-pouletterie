@@ -6,3 +6,8 @@ export const selectOrdersByUserId = createSelector(
   [selectOrder],
   (order) => order.orders
 );
+
+export const selectAllOrders = createSelector(
+  [selectOrder],
+  (order) => order.orders
+);

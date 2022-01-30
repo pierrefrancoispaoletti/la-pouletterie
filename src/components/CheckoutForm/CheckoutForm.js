@@ -59,7 +59,9 @@ export default function CheckoutForm() {
             dispatch(
               setMessage({ status: "success", message: "Paiement réussi" })
             );
-            navigate("/vos-commandes");
+            setTimeout(() => {
+              navigate("/vos-commandes");
+            }, 3000);
             break;
           case "processing":
             dispatch(

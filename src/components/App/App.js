@@ -26,6 +26,7 @@ import ProductModal from "../ProductModal/ProductModal";
 import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
 import Payment from "../../pages/Payment/Payment";
 import UserOrders from "../../pages/UserOrders/UserOrders";
+import AdminOrders from "../../pages/AdminOrders/AdminOrders";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
@@ -52,10 +53,18 @@ const App = () => {
         <Route path="/vos-infos" element={user ? <User /> : <HomePage />} />
         <Route
           path="/vos-commandes"
-          element={user ? <UserOrders /> : <HomePage />}
+          element={
+            user && user.user.role === "client" ? <UserOrders /> : <HomePage />
+          }
         />
         <Route path="/panier" element={<Checkout />} />
         <Route path="/paiement" element={user ? <Payment /> : <HomePage />} />
+        <Route
+          path="/commandes"
+          element={
+            user && user.user.role === "admin" ? <AdminOrders /> : <HomePage />
+          }
+        />
       </Routes>
       <ProductDetail />
       {user && user.user.role === "admin" && isAddProductModalOpen && (
