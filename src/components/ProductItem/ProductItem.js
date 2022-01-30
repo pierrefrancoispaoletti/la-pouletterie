@@ -2,6 +2,7 @@ import React from "react";
 import { localServerURI } from "../../_consts/server/server";
 import CartControlButtons from "../CartControlButtons/CartControlButtons";
 import {
+  ProductImageContainer,
   ProductItemButtonContainer,
   ProductItemContainer,
   ProductItemDescription,
@@ -13,12 +14,12 @@ const ProductItem = ({ children, isCart, ...product }) => {
   return (
     <ProductItemContainer isCart={isCart}>
       <ProductItemTop isCart={isCart}>
-        <div>
+        <ProductImageContainer>
           <img
             src={`${localServerURI}/uploads/${product.imgURI}`}
             alt={product?.name}
           />
-        </div>
+        </ProductImageContainer>
         <ProductItemTitleAndPrice>
           <h3>
             {product.hidden ? `CACHE : ${product?.name}` : `${product.name}`}
@@ -32,9 +33,9 @@ const ProductItem = ({ children, isCart, ...product }) => {
       {!isCart && (
         <>
           <CartControlButtons _id={product._id} product={product} />
-          <ProductItemDescription>
+          {/* <ProductItemDescription>
             <p>{product.description}</p>
-          </ProductItemDescription>
+          </ProductItemDescription> */}
         </>
       )}
       <ProductItemButtonContainer>{children}</ProductItemButtonContainer>

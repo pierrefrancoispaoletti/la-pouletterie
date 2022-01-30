@@ -9,6 +9,7 @@ import { selectProducts } from "../../redux/reducers/product/product.selectors";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import { ProductsContainer } from "./home.style";
 import { selectUserTokenDecoded } from "../../redux/reducers/user/user.selectors";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,12 @@ const HomePage = () => {
     <main>
       {categories.map((category) => (
         <div key={category.slug}>
-          <CategoryTitle>{category.name}</CategoryTitle>
+          <Link
+            style={{ textDecorationColor: "none" }}
+            to={`produits/${category.slug}`}
+          >
+            <CategoryTitle>{category.name}</CategoryTitle>
+          </Link>
           <ProductsContainer>
             {products.map(
               (product) =>
@@ -35,7 +41,7 @@ const HomePage = () => {
                           type="button"
                           onClick={() => dispatch(selectProduct(product))}
                         >
-                          Voir le produit
+                          Voir plus
                         </CustomButton>
                       </ProductItem>
                     )}

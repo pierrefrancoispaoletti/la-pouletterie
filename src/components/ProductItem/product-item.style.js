@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { colors } from "../../_consts/colors/colors";
 
 const isCart = (props) => {
   if (props.isCart) {
@@ -45,24 +46,46 @@ export const ProductItemTitleAndPrice = styled.div`
   flex-grow: 1;
   h3 {
     margin: 0;
-    text-align: center;
+    margin-bottom: 22px;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    text-align: left;
+    align-self: flex-start;
   }
   span {
+    font-size: 1.3em;
+    font-weight: bold;
     display: inline-block;
-    margin-left: auto;
-    padding: 18px;
+    margin-left: 12px;
+    align-self: flex-start;
   }
 `;
 
 export const ProductItemDescription = styled.div`
-  width: 100%;
-  margin-left: 18px;
-  height: 150px;
-  overflow: auto;
+  width: fit-content;
+  margin-left: auto;
+  font-size: 1.3em;
+  margin: 12px 0;
+  height: auto;
+  border: 3px solid ${colors.gold};
+  background: ${colors.green};
+  color: white;
+  font-weight: 700;
+  line-height: 1.5;
+  padding: 0.5em;
+  border-radius: 12px;
 `;
 
 export const ProductItemButtonContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-around;
+`;
+
+export const ProductImageContainer = styled.div`
+  width: fit-content;
+  height: fit-content;
+  img {
+    border-radius: 30px 30px 30px 100px;
+  }
 `;

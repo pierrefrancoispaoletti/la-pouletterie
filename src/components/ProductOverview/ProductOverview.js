@@ -11,7 +11,9 @@ const ProductOverview = () => {
         style={{
           display: "flex",
           justifyContent: "space-between",
+          flexDirection: "column",
           alignItems: "center",
+          fontSize: "1.3rem",
         }}
       >
         <h2>{name}</h2>
@@ -20,7 +22,7 @@ const ProductOverview = () => {
         </span>
       </div>
       <div>
-        <p>{description}</p>
+        <p style={{ fontSize: "1.3em" }}>{description}</p>
       </div>
       <div>
         <ul>

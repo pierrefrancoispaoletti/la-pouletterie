@@ -11,18 +11,18 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [error, setError] = useState({
-    firstname: false,
-    lastname: false,
-    email: false,
-    phone: false,
-    addressFirstLine: false,
-    addressComplement: false,
-    password: false,
-    confirmpassword: false,
-  });
+  // const [error, setError] = useState({
+  //   firstname: false,
+  //   lastname: false,
+  //   email: false,
+  //   phone: false,
+  //   addressFirstLine: false,
+  //   addressComplement: false,
+  //   password: false,
+  //   confirmpassword: false,
+  // });
 
-  const [isError, setIsError] = useState(true);
+  // const [isError, setIsError] = useState(true);
 
   const [newUser, setNewUser] = useState({
     firstname: "",
@@ -41,108 +41,130 @@ const Register = () => {
   };
 
   const handleSubmit = (e) => {
-    const { addressComplement, ...otherProps } = newUser;
     e.preventDefault();
-    checkError(otherProps);
-    if (!isError) {
-      registerQuerry(newUser, dispatch, navigate);
-    }
+    // checkError(otherProps);
+    // if (!isError) {
+    //   registerQuerry(newUser, dispatch, navigate);
+    // }
+    registerQuerry(newUser, dispatch, navigate);
   };
 
-  console.log(isError);
+  // console.log(isError);
 
-  const checkError = (object) => {
-    const keys = Object.keys(object);
-    keys.map((key) => {
-      if (!object[key]) {
-        setError((prevState) => ({ ...prevState, [key.toString()]: true }));
-      } else {
-        setError((prevState) => ({ ...prevState, [key.toString()]: false }));
-      }
-    });
-    const values = Object.values(error);
-    if (values.some((val) => val === true)) {
-      console.log(error);
-      setIsError(true);
-    } else {
-      setIsError(false);
-    }
-  };
+  // const checkError = (object) => {
+  //   const keys = Object.keys(object);
+  //   keys.map((key) => {
+  //     if (!object[key]) {
+  //       setError((prevState) => ({ ...prevState, [key.toString()]: true }));
+  //     } else {
+  //       setError((prevState) => ({ ...prevState, [key.toString()]: false }));
+  //     }
+  //   });
+  //   const values = Object.values(error);
+  //   if (values.some((val) => val === true)) {
+  //     console.log(error);
+  //     setIsError(true);
+  //   } else {
+  //     setIsError(false);
+  //   }
+  // };
 
   return (
     <LoginContainer>
       <CategoryTitle>Inscription</CategoryTitle>
+      <div>Tous les champs sont obligatoires</div>
       <FormContainer onSubmit={handleSubmit}>
         <TextInput
-          // required
+          required
           type="text"
           name="firstname"
           label="Prénom (Obligatoire)"
-          error={error.firstname}
+          autocomplete="fname"
+          // error={error.firstname}
           value={newUser.firstname}
           handleChange={handleChange}
         />
         <TextInput
-          // required
+          required
           type="text"
           name="lastname"
           label="Nom (Obligatoire)"
-          error={error.lastname}
+          autocomplete="family-name"
+          // error={error.lastname}
           value={newUser.lastname}
           handleChange={handleChange}
         />
         <TextInput
-          // required
+          required
           type="email"
           name="email"
           label="Email (Obligatoire)"
-          error={error.email}
+          autocomplete="email"
+          // error={error.email}
           value={newUser.email}
           handleChange={handleChange}
         />
         <TextInput
+          required
           type="text"
           name="phone"
+          autocomplete="phone"
           label="N° de télephone (Obligatoire)"
-          error={error.phone}
+          // error={error.phone}
           value={newUser.phone}
           handleChange={handleChange}
         />
         <TextInput
-          // required
+          required
           type="text"
           name="addressFirstLine"
           label="Adresse (Obligatoire)"
-          error={error.addressFirstLine}
+          // error={error.addressFirstLine}
           value={newUser.addressFirstLine}
           handleChange={handleChange}
         />
         <TextInput
           type="text"
           name="addressComplement"
+          autocomplete="postal-code"
           label="Code Postal (Obligatoire)"
+          // error={error.addressComplement}
           value={newUser.addressComplement}
           handleChange={handleChange}
         />
         <TextInput
-          // required
+          required
           type="password"
           name="password"
           label="Mot de passe (Obligatoire)"
-          error={error.password}
+          // error={error.password}
           value={newUser.password}
           handleChange={handleChange}
         />
         <TextInput
-          // required
+          required
           type="password"
           name="confirmpassword"
           label="Confirmation du MDP (Obligatoire)"
-          error={error.confirmpassword}
+          // error={error.confirmpassword}
           value={newUser.confirmpassword}
           handleChange={handleChange}
         />
-        <CustomButton type="submit">S'inscrire</CustomButton>
+        <CustomButton
+          disabled={
+            !newUser.firstname ||
+            !newUser.lastname ||
+            !newUser.email ||
+            !newUser.phone ||
+            !newUser.addressFirstLine ||
+            !newUser.addressComplement ||
+            !newUser.password ||
+            !newUser.confirmpassword
+          }
+          type="submit"
+        >
+          S'inscrire
+        </CustomButton>
       </FormContainer>
     </LoginContainer>
   );

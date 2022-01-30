@@ -34,7 +34,7 @@ const ProductsPage = () => {
                               type="button"
                               onClick={() => dispatch(selectProduct(product))}
                             >
-                              Voir le produit
+                              Voir plus
                             </CustomButton>
                           </>
                         </ProductItem>
