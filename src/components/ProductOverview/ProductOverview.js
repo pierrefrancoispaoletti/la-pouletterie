@@ -22,7 +22,7 @@ const ProductOverview = () => {
         </span>
       </div>
       <div>
-        <p style={{ fontSize: "1.3em" }}>{description}</p>
+        <p style={{ fontSize: "1.3em", lineHeight: "1.5" }}>{description}</p>
       </div>
       <div>
         <ul>

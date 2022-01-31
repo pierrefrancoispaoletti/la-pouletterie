@@ -1,6 +1,23 @@
 import styled, { css } from "styled-components";
 import { colors } from "../../_consts/colors/colors";
 
+const isPaymentSelection = (props) => {
+  if (props.paymentSelection) {
+    return css`
+      margin-bottom: 12px;
+    `;
+  }
+};
+
+const isSelected = (props) => {
+  if (props.selected) {
+    return css`
+      background: black;
+      color: white;
+      border: 3px solid white;
+    `;
+  }
+};
 const isSmall = (props) => {
   if (props.small) {
     return css`
@@ -124,4 +141,6 @@ export const CustommButtonStyled = styled.button`
   ${isPaymentButton}
   ${isDisabled}
   ${buttonStyle}
+  ${isPaymentSelection}
+  ${isSelected}
 `;

@@ -27,6 +27,7 @@ import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
 import Payment from "../../pages/Payment/Payment";
 import UserOrders from "../../pages/UserOrders/UserOrders";
 import AdminOrders from "../../pages/AdminOrders/AdminOrders";
+import AdminReports from "../../pages/AdminReports/AdminReports";
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
@@ -63,6 +64,12 @@ const App = () => {
           path="/commandes"
           element={
             user && user.user.role === "admin" ? <AdminOrders /> : <HomePage />
+          }
+        />
+        <Route
+          path="/rapports"
+          element={
+            user && user.user.role === "admin" ? <AdminReports /> : <HomePage />
           }
         />
       </Routes>

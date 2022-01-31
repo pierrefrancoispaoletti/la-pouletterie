@@ -23,9 +23,9 @@ const Suggestions = () => {
   const products = useSelector(selectProducts);
   const crossedProducts = useSelector(selectCrossedProducts(products));
 
-  return (
+  return crossedProducts?.length ? (
     <SuggestionsContainer>
-      <h3>Suggestions : </h3>
+      <h3>Souvent acheté ensemble :</h3>
       <SuggestionsListUl>
         {crossedProducts?.map((product) => {
           const { name, price, _id } = product;
@@ -43,6 +43,8 @@ const Suggestions = () => {
         })}
       </SuggestionsListUl>
     </SuggestionsContainer>
+  ) : (
+    <></>
   );
 };
 

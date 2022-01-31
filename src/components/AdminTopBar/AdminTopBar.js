@@ -26,11 +26,11 @@ const AdminTopBar = () => {
         <span>Ajouter</span>
       </LinkButtonStyled>
       <LinkButtonStyled
-        selected={location.pathname === "/utilisateurs"}
-        onClick={() => navigate("/utilisateurs")}
+        selected={location.pathname === "/rapports"}
+        onClick={() => navigate("/rapports")}
       >
         <FontAwesomeIcon className="icon" icon={faUser} size="2x" />
-        <span>Utilisateurs</span>
+        <span>Rapports</span>
       </LinkButtonStyled>
       <LinkButtonStyled
         selected={location.pathname === "/commandes"}

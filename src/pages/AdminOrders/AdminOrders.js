@@ -24,7 +24,7 @@ const AdminOrders = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       interval = setInterval(async () => {
         await fetchAllOrders(token, dispatch);
-      }, 3000);
+      }, 60000);
     }
     return () => {
       setMounted(false);
@@ -35,22 +35,30 @@ const AdminOrders = () => {
   const handleOrderStatus = (order) => {
     const update = { ...order };
 
+    console.log(update);
     if (order.status === "PAYEE") {
       update.status = "LIVREE";
     }
     if (order.status === "ATTENTE_PAIEMENT") {
       update.status = "LIVREE";
     }
+    if (
+      order.status === "ATTENTE_PAIEMENT" &&
+      order.deliveryMode === "EMPORTER"
+    ) {
+      update.status = "RECUPEREE";
+    }
 
     updateOrder(token, update, dispatch);
   };
 
   return allOrders.length ? (
-    <div>
-      <table>
+    <div style={{ width: "100%" }}>
+      <table style={{ textAlign: "center", width: "100%" }}>
         <thead>
           <tr>
             <th>Client</th>
+            <th>Date</th>
             <th>Telephone</th>
             <th>Mail</th>
             <th>Status</th>
@@ -67,6 +75,7 @@ const AdminOrders = () => {
                 <td>
                   {order.user.firstname} {order.user.lastname}
                 </td>
+                <td>{order.date}</td>
                 <td>
                   <a href={`tel:${order.user.phone}`}>
                     <FontAwesomeIcon icon={faPhone} />
@@ -81,7 +90,7 @@ const AdminOrders = () => {
                 <td>{order.deliveryMode}</td>
                 <td>{order.deliveryAddress}</td>
                 <td>
-                  <ul>
+                  <ul style={{ listStyle: "none" }}>
                     {order.products.map(({ _id, quantity }) => (
                       <li>
                         {_id.name} x {quantity}
@@ -99,7 +108,12 @@ const AdminOrders = () => {
                     </CustomButton>
                   )}
                   {order.deliveryMode === "EMPORTER" && (
-                    <CustomButton type="button">Commande Prête</CustomButton>
+                    <CustomButton
+                      type="button"
+                      onClick={() => handleOrderStatus(order)}
+                    >
+                      Commande Récuperée
+                    </CustomButton>
                   )}
                 </td>
               </tr>

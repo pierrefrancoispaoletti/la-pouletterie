@@ -28,22 +28,25 @@ const ProductDetail = () => {
 
   return (
     <ProductDetailContainer open={selectedProduct.name}>
-      <CustomButton
-        delete
-        badge
-        type="button"
-        method="delete"
-        onClick={() => dispatch(selectProduct({}))}
-      >
-        <FontAwesomeIcon icon={faTimes} size="1x" />
-      </CustomButton>
       <div>
         <div>
-          <img
-            width="100%"
-            style={{ maxHeight: "250px" }}
-            src={`${localServerURI}/uploads/${imgURI}`}
-            alt={name}
+          <CustomButton
+            delete
+            badge
+            type="button"
+            onClick={() => dispatch(selectProduct({}))}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </CustomButton>
+          <div
+            style={{
+              backgroundImage: `url(${localServerURI}/uploads/${imgURI})`,
+              backgroundPosition: "center center",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              width: "100%",
+              minHeight: "250px",
+            }}
           />
         </div>
         <ProductOverview />
@@ -54,6 +57,21 @@ const ProductDetail = () => {
           />
         </div>
         <Suggestions />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <CustomButton
+            negative
+            type="button"
+            onClick={() => dispatch(selectProduct({}))}
+          >
+            Fermer
+          </CustomButton>
+        </div>
       </div>
     </ProductDetailContainer>
   );

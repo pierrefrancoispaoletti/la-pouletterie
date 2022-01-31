@@ -20,7 +20,7 @@ const HomePage = () => {
       {categories.map((category) => (
         <div key={category.slug}>
           <Link
-            style={{ textDecorationColor: "none" }}
+            style={{ textDecoration: "none" }}
             to={`produits/${category.slug}`}
           >
             <CategoryTitle>{category.name}</CategoryTitle>

@@ -42,7 +42,8 @@ export const ProductItemTitleAndPrice = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: ${(props) =>
+    props.isCart ? "space-between" : "flex-start"};
   flex-grow: 1;
   h3 {
     margin: 0;

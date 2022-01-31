@@ -20,7 +20,7 @@ const ProductItem = ({ children, isCart, ...product }) => {
             alt={product?.name}
           />
         </ProductImageContainer>
-        <ProductItemTitleAndPrice>
+        <ProductItemTitleAndPrice isCart={isCart}>
           <h3>
             {product.hidden ? `CACHE : ${product?.name}` : `${product.name}`}
           </h3>

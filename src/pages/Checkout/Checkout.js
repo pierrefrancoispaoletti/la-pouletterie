@@ -51,12 +51,12 @@ const Checkout = () => {
   };
   const handleCreateOrderForTakeAwayOrPaymentOnDelivery = () => {
     const order = {
-      user: user.user._id,
+      user: user?.user?._id,
       products: cart,
       deliveryAddress:
         selectTakeAway === "take-away"
           ? ""
-          : `${user.user.address.addressFirstLine} ${user.user.address.addressComplement}`,
+          : `${user?.user?.address?.addressFirstLine} ${user?.user?.address?.addressComplement}`,
       deliveryMode: selectTakeAway === "take-away" ? "EMPORTER" : "LIVRAISON",
       status: "ATTENTE_PAIEMENT",
     };
@@ -76,8 +76,10 @@ const Checkout = () => {
         utilisant les codes postaux 20090 et 20167
       </div>
       <div>
-        <p>Votre adresse de livraison : {user.user.address.addressFirstLine}</p>
-        <p>Votre Code Postal : {user.user.address.addressComplement}</p>
+        <p>
+          Votre adresse de livraison : {user?.user?.address?.addressFirstLine}
+        </p>
+        <p>Votre Code Postal : {user?.user?.address?.addressComplement}</p>
         <Link to="/vos-infos">Modifier mon adresse de livraison</Link>
       </div>
       {cart.map(
@@ -89,14 +91,26 @@ const Checkout = () => {
           )
       )}
       <CategoryTitle>Je Choisis mon mode de livraison</CategoryTitle>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <CustomButton
+          paymentSelection
+          positive
+          selected={selectTakeAway === "take-away"}
           type="button"
           onClick={() => handleTakeAwayMethod("take-away")}
         >
           A emporter
         </CustomButton>
         <CustomButton
+          paymentSelection
+          positive
+          selected={selectTakeAway === "delivery"}
           type="button"
           onClick={() => handleTakeAwayMethod("delivery")}
         >
@@ -106,14 +120,26 @@ const Checkout = () => {
       {selectTakeAway && selectTakeAway === "delivery" && total > 10 && (
         <>
           <CategoryTitle>Je Choisis mon mode de Paiement</CategoryTitle>
-          <div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <CustomButton
+              paymentSelection
+              positive
+              selected={selectPaymentMethod === "payment-on-delivery"}
               type="button"
               onClick={() => handlePaymentMethod("payment-on-delivery")}
             >
               Paiement Espéces ou Tickets restaurant à la livraison
             </CustomButton>
             <CustomButton
+              paymentSelection
+              positive
+              selected={selectPaymentMethod === "CB"}
               type="button"
               onClick={() => handlePaymentMethod("CB")}
             >
