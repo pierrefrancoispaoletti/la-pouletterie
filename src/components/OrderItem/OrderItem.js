@@ -8,7 +8,6 @@ import {
 
 const OrderItem = ({ ...order }) => {
   const { date, products, status } = order;
-  console.log(products);
   return (
     <OrderItemContainer>
       <ItemOrderDate>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllOrders, updateOrder } from "../../querries/order.querries";
+import { updateOrder } from "../../querries/order.querries";
 import { selectAllOrders } from "../../redux/reducers/order/order.selectors";
 import { selectUserToken } from "../../redux/reducers/user/user.selectors";
 import CustomButton from "../../components/CustoButton/CustomButton";
@@ -9,33 +9,18 @@ import { faEnvelope, faPhone } from "@fortawesome/pro-duotone-svg-icons";
 import { UserOrderContainer } from "../UserOrders/user-orders.style";
 import { NoItemMessage } from "../Checkout/checkout.style";
 import { Link } from "react-router-dom";
+import { refundPayment } from "../../querries/payment.querries";
+import { useFetchAllOrders } from "../../CustomHooks/useFetchAllOrders";
 const AdminOrders = () => {
   const token = useSelector(selectUserToken);
   const dispatch = useDispatch();
   const allOrders = useSelector(selectAllOrders);
-  const [mounted, setMounted] = useState(false);
-  let interval;
 
-  console.log(allOrders);
-
-  useEffect(() => {
-    setMounted(true);
-    if (mounted) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      interval = setInterval(async () => {
-        await fetchAllOrders(token, dispatch);
-      }, 60000);
-    }
-    return () => {
-      setMounted(false);
-      clearInterval(interval);
-    };
-  }, [token, mounted]);
+  useFetchAllOrders();
 
   const handleOrderStatus = (order) => {
     const update = { ...order };
 
-    console.log(update);
     if (order.status === "PAYEE") {
       update.status = "LIVREE";
     }
@@ -50,6 +35,10 @@ const AdminOrders = () => {
     }
 
     updateOrder(token, update, dispatch);
+  };
+
+  const handleRefundPayment = (orderId, paymentIntent) => {
+    refundPayment(token, orderId, paymentIntent, dispatch);
   };
 
   return allOrders.length ? (
@@ -113,6 +102,17 @@ const AdminOrders = () => {
                       onClick={() => handleOrderStatus(order)}
                     >
                       Commande Récuperée
+                    </CustomButton>
+                  )}
+                  {order.paymentIntent && (
+                    <CustomButton
+                      type="button"
+                      negative
+                      onClick={() =>
+                        handleRefundPayment(order._id, order.paymentIntent)
+                      }
+                    >
+                      Rembourser la commande
                     </CustomButton>
                   )}
                 </td>

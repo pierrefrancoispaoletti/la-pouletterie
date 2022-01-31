@@ -4,10 +4,15 @@ const selectOrder = (state) => state.order;
 
 export const selectOrdersByUserId = createSelector(
   [selectOrder],
-  (order) => order.orders
+  (order) => order.userOrders
 );
 
 export const selectAllOrders = createSelector(
   [selectOrder],
-  (order) => order.orders
+  (order) => order.allOrders
+);
+
+export const selectAllRawOrders = createSelector(
+  [selectOrder],
+  (order) => order.rawOrders
 );

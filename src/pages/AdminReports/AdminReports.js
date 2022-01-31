@@ -1,31 +1,17 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
-import { localServerURI } from "../../_consts/server/server";
+import React, { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
+import { useFetchAllRawOrders } from "../../CustomHooks/useFetchRawOrders";
+import { selectAllRawOrders } from "../../redux/reducers/order/order.selectors";
 
 const AdminReports = () => {
-  const [rawOrders, setRawOrders] = useState([]);
+  useFetchAllRawOrders();
+  const rawOrders = useSelector(selectAllRawOrders);
   const [args, setArgs] = useState({
     deliveryMode: "",
     status: "",
     date: "",
     user: "",
   });
-
-  useEffect(() => {
-    const asyncCall = async () => {
-      const response = await axios({
-        method: "GET",
-        url: `${localServerURI}/api/orders/all-raw`,
-      });
-
-      const {
-        data: { orders },
-      } = response;
-      setRawOrders(orders);
-    };
-
-    asyncCall();
-  }, []);
 
   const generateArrayOfYear = () => {
     let min = new Date().getFullYear();
@@ -40,7 +26,9 @@ const AdminReports = () => {
 
   const generateArrayofMonth = () => {
     return Array.from({ length: 12 }, (item, index) => {
-      return new Date(0, index).toLocaleDateString("fr-FR", { month: "long" });
+      return `${new Date(0, index).toLocaleDateString("fr-FR", {
+        month: "long",
+      })} ${new Date().getFullYear()}`;
     });
   };
 
@@ -54,21 +42,24 @@ const AdminReports = () => {
             }
           } else {
             const username = `${obj[key]["lastname"]} ${obj[key]["firstname"]}`;
-            console.log(username);
             if (username === undefined || !username.includes(args[key])) {
               return false;
             }
-            return obj;
           }
         }
         return obj;
       }),
     [args, rawOrders]
   );
-  let computedAmount;
-  const computeAmountOfOrder = useCallback(({ products }, computedAmount) => {
-    computedAmount = products
-      .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0)
+  const computeAmountOfOrder = useCallback(({ products, status }) => {
+    let computedAmount = products
+      .reduce(
+        (acc, amt) =>
+          status !== "REMBOURSEE"
+            ? acc + amt._id.price * amt.quantity
+            : acc - amt._id.price * amt.quantity,
+        0
+      )
       .toFixed(2);
     return computedAmount;
   }, []);
@@ -104,16 +95,32 @@ const AdminReports = () => {
     [args]
   );
 
+  console.log(
+    filteringFunction()
+      .flatMap((order) =>
+        order.status !== "REMBOURSEE" ? order.products : undefined
+      )
+      .filter((i) => i !== undefined)
+      .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0)
+  );
+
   return (
     <div>
       <h1>Total des commandes : {rawOrders.length}</h1>
       <h1>Total des produits filtrés : {filteringFunction().length}</h1>
       <h2>
         Total général :
-        {filteringFunction()
-          .flatMap((order) => order.products)
-          .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0)
-          .toFixed(2)}{" "}
+        {(
+          filteringFunction()
+            .flatMap((order) => order.products)
+            .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0) +
+          filteringFunction()
+            .flatMap((order) =>
+              order.status === "REMBOURSEE" ? order.products : undefined
+            )
+            .filter((i) => i !== undefined)
+            .reduce((acc, amt) => acc - amt._id.price * amt.quantity, 0)
+        ).toFixed(2)}
         <small>€</small>
       </h2>
       <div
@@ -190,7 +197,7 @@ const AdminReports = () => {
                 <td>{order.deliveryMode}</td>
                 <td>{order.status}</td>
                 <td>
-                  {order && computeAmountOfOrder(order, computedAmount)}
+                  {order && computeAmountOfOrder(order)}
                   <small>€</small>
                 </td>
                 <td>

@@ -43,3 +43,33 @@ export const createPaymentIntent = async (
     }
   }
 };
+
+export const refundPayment = async (
+  token,
+  orderId,
+  paymentIntent,
+  dispatch
+) => {
+  dispatch(toggleLoading());
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${localServerURI}/api/payment/refund-payment`,
+      headers: { Authorization: `Bearer ${token}` },
+      data: { orderId, paymentIntent },
+    });
+    const {
+      data: { message },
+    } = response;
+    dispatch(toggleLoading());
+    dispatch(setMessage({ status: "success", message }));
+  } catch (error) {
+    dispatch(toggleLoading());
+    dispatch(
+      setMessage({
+        status: "error",
+        message: error.response.data.message,
+      })
+    );
+  }
+};

@@ -9,3 +9,8 @@ export const getAllOrders = (orders) => ({
   type: orderActionTypes.GET_ALL_ORDERS,
   payload: orders,
 });
+
+export const getAllRawOrders = (orders) => ({
+  type: orderActionTypes.GET_ALL_RAW_ORDERS,
+  payload: orders,
+});

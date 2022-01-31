@@ -1,7 +1,9 @@
 import { orderActionTypes } from "./order.types";
 
 const INITIAL_STATE = {
-  orders: [],
+  userOrders: [],
+  allOrders: [],
+  rawOrders: [],
 };
 
 export const orderReducer = (state = INITIAL_STATE, action) => {
@@ -9,12 +11,17 @@ export const orderReducer = (state = INITIAL_STATE, action) => {
     case orderActionTypes.GET_ORDERS_BY_USER_ID:
       return {
         ...state,
-        orders: action.payload,
+        userOrders: action.payload,
       };
     case orderActionTypes.GET_ALL_ORDERS:
       return {
         ...state,
-        orders: action.payload,
+        allOrders: action.payload,
+      };
+    case orderActionTypes.GET_ALL_RAW_ORDERS:
+      return {
+        ...state,
+        rawOrders: action.payload,
       };
     default:
       return state;

@@ -3,6 +3,7 @@ import { setMessage, toggleLoading } from "../redux/reducers/app/app.actions";
 import { emptyCart } from "../redux/reducers/cart/cart.actions";
 import {
   getAllOrders,
+  getAllRawOrders,
   getOrdersByUserId,
 } from "../redux/reducers/order/order.actions";
 import { localServerURI } from "../_consts/server/server";
@@ -53,6 +54,27 @@ export const fetchAllOrders = async (token, dispatch) => {
   }
 };
 
+export const fetchAllRawOrders = async (token, dispatch) => {
+  try {
+    const response = await axios({
+      method: "GET",
+      url: `${localServerURI}/api/orders/all-raw`,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const {
+      data: { orders },
+    } = response;
+
+    dispatch(getAllRawOrders(orders));
+  } catch (error) {
+    dispatch(toggleLoading());
+    dispatch(
+      setMessage({ status: "error", message: error.response.data.message })
+    );
+  }
+};
+
 export const createOrder = async (token, order, dispatch, navigate) => {
   dispatch(toggleLoading());
   const { products, ...others } = order;
@@ -60,7 +82,6 @@ export const createOrder = async (token, order, dispatch, navigate) => {
     ...others,
     products: products.map(({ _id, quantity }) => ({ _id, quantity })),
   };
-  console.log(newOrder);
   try {
     const response = await axios({
       method: "POST",
