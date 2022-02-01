@@ -5,7 +5,7 @@ import {
   setMessage,
 } from "../redux/reducers/app/app.actions";
 import { config } from "../_consts/config";
-import { GOOGLE_API_KEY } from "../_consts/GOOGLE_API_KEY";
+import { localServerURI } from "../_consts/server/server";
 
 export const getDistanceMatrix = async (origin, dest, postalCode, dispatch) => {
   const now = Date.now() + 1000 * 60 * 10; //  on rajoute 10minutes au pour le temps de preparation de la commande
@@ -13,9 +13,10 @@ export const getDistanceMatrix = async (origin, dest, postalCode, dispatch) => {
     config;
   try {
     const response = await axios({
-      method: "GET",
-      url: `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${dest}&units=metric&departure_time=${now}&traffic_model=pessimistic&key=${GOOGLE_API_KEY}`,
+      method: "post",
+      url: `${localServerURI}/api/google-api`,
       headers: { "Accept-Language": "fr" },
+      data: { origin, dest, now },
     });
     const {
       data: { rows },
