@@ -12,6 +12,9 @@ const INITIAL_STATE = {
   currentDate: {
     day: new Date().toLocaleDateString("fr-FR", { weekday: "long" }),
   },
+  canDeliver: false,
+  originAddress: "La Pouletterie, C.Commercial mezzavia, 20090 Ajaccio",
+  averageTimeBeforeDeliveryInMinutes: 0,
 };
 
 export const appReducer = (state = INITIAL_STATE, action) => {
@@ -40,6 +43,16 @@ export const appReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isUpdateProductModalOpen: !state.isUpdateProductModalOpen,
+      };
+    case appActionTypes.CHANGE_CAN_DELIVER:
+      return {
+        ...state,
+        canDeliver: action.payload,
+      };
+    case appActionTypes.SET_AVERAGE_TIME_BEFORE_DELIVERY:
+      return {
+        ...state,
+        averageTimeBeforeDeliveryInMinutes: action.payload,
       };
     default:
       return state;

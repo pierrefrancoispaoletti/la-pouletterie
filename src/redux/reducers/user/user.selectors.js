@@ -18,3 +18,35 @@ export const selectUserTokenDecoded = createSelector(
     return;
   }
 );
+
+export const selectUserFullAddress = createSelector(
+  [selectUserTokenDecoded],
+  (tokenDecoded) => {
+    if (tokenDecoded) {
+      const {
+        user: {
+          address: { addressFirstLine, addressComplement },
+        },
+      } = tokenDecoded;
+      let address = `${addressFirstLine}, ${addressComplement}`;
+      return address;
+    }
+    return;
+  }
+);
+
+export const selectUserPostalCode = createSelector(
+  [selectUserTokenDecoded],
+  (tokenDecoded) => {
+    if (tokenDecoded) {
+      const {
+        user: {
+          address: { addressComplement },
+        },
+      } = tokenDecoded;
+      let postalCode = addressComplement;
+      return postalCode;
+    }
+    return;
+  }
+);

@@ -20,3 +20,13 @@ export const setMessage = ({ ...message }) => ({
   type: appActionTypes.SET_MESSAGE,
   payload: { status: message.status, message: message.message },
 });
+
+export const changeCanDeliver = (canDeliver) => ({
+  type: appActionTypes.CHANGE_CAN_DELIVER,
+  payload: canDeliver,
+});
+
+export const setAverageTimeBeforeDelivery = (averageTimeInMinutes) => ({
+  type: appActionTypes.SET_AVERAGE_TIME_BEFORE_DELIVERY,
+  payload: averageTimeInMinutes,
+});

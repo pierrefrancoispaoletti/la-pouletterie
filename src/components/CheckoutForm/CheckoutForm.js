@@ -20,7 +20,7 @@ import { selectClientSecret } from "../../redux/reducers/payment/payment.selecto
 import { useNavigate } from "react-router-dom";
 import { emptyCart } from "../../redux/reducers/cart/cart.actions";
 
-export default function CheckoutForm() {
+const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
@@ -119,4 +119,6 @@ export default function CheckoutForm() {
       )}
     </PaymentForm>
   );
-}
+};
+
+export default CheckoutForm;

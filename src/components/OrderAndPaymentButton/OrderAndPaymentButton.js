@@ -11,7 +11,10 @@ import {
   selectUserToken,
   selectUserTokenDecoded,
 } from "../../redux/reducers/user/user.selectors";
-import { selectCurrentDay } from "../../redux/reducers/app/app.selectors";
+import {
+  selectCanDeliver,
+  selectCurrentDay,
+} from "../../redux/reducers/app/app.selectors";
 
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../querries/order.querries";
@@ -33,6 +36,7 @@ const OrderAndPaymentButtons = () => {
   const token = useSelector(selectUserToken);
   const total = useSelector(selectCartItemTotal);
   const currentDay = useSelector(selectCurrentDay);
+  const canDeliver = useSelector(selectCanDeliver);
 
   const {
     closingDays,
@@ -75,6 +79,14 @@ const OrderAndPaymentButtons = () => {
           : `${user?.user?.address?.addressFirstLine} ${user?.user?.address?.addressComplement}`,
       deliveryMode: selectTakeAway === "take-away" ? "EMPORTER" : "LIVRAISON",
       status: "ATTENTE_PAIEMENT",
+      date: new Date().toLocaleDateString("fr-FR", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      }),
     };
     createOrder(token, order, dispatch, navigate);
   };
@@ -122,7 +134,7 @@ const OrderAndPaymentButtons = () => {
           A emporter
         </CustomButton>
         <CustomButton
-          disabled={total < minimumOrderAmount}
+          disabled={total < minimumOrderAmount || !canDeliver}
           paymentSelection
           positive
           selected={selectTakeAway === "delivery"}

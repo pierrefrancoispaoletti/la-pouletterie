@@ -6,7 +6,6 @@ import {
   selectCartItems,
   selectCartItemTotal,
 } from "../../redux/reducers/cart/cart.selectors";
-import { selectUserTokenDecoded } from "../../redux/reducers/user/user.selectors";
 
 import ProductItem from "../../components/ProductItem/ProductItem";
 import CartControlButtons from "../../components/CartControlButtons/CartControlButtons";
@@ -21,32 +20,50 @@ import {
   NoItemMessage,
 } from "./checkout.style";
 import { Link } from "react-router-dom";
+import InformativElement from "../../components/InformativeElement/InformativeElement";
+import {
+  selectAverageTimeBeforeDeliveryInMinutes,
+  selectCanDeliver,
+} from "../../redux/reducers/app/app.selectors";
+import AddressElement from "../../components/AddressElement /AddressElement";
+import { useCheckDistanceFromOrigin } from "../../CustomHooks/useCheckDistanceFromOrigin";
+import { config } from "../../_consts/config";
 
 const Checkout = () => {
   const cart = useSelector(selectCartItems);
   const total = useSelector(selectCartItemTotal);
-  const user = useSelector(selectUserTokenDecoded);
+  const canDeliver = useSelector(selectCanDeliver);
+  const averageTimeBeforeDeliveryInMinutes = useSelector(
+    selectAverageTimeBeforeDeliveryInMinutes
+  );
 
+  const { minimumOrderAmount, additionalMinutesBeforeDelivery } = config;
+  useCheckDistanceFromOrigin();
   useCreatePaymentIntent();
   return cart.length ? (
     <CheckoutContainer>
+      {!canDeliver || total < minimumOrderAmount ? (
+        <InformativElement>
+          {!canDeliver
+            ? "Votre Addresse actuelle ne permet pas la livraison"
+            : total < minimumOrderAmount
+            ? "Le montant de votre commande actuel ne permet pas a livraison"
+            : ""}
+        </InformativElement>
+      ) : (
+        <InformativElement>
+          {`Si vous commandez maintenant, votre commande sera chez vous dans ${
+            averageTimeBeforeDeliveryInMinutes + additionalMinutesBeforeDelivery
+          } minutes`}
+        </InformativElement>
+      )}
+      <AddressElement />
       <CheckoutTitle>
         <h2>Votre Panier</h2>
         <span>
           Total : {total} <small>€</small>
         </span>
       </CheckoutTitle>
-      <div>
-        ATTENTION : Nous ne proposons la livraison que pour les clients
-        utilisant les codes postaux 20090 et 20167
-      </div>
-      <div>
-        <p>
-          Votre adresse de livraison : {user?.user?.address?.addressFirstLine}
-        </p>
-        <p>Votre Code Postal : {user?.user?.address?.addressComplement}</p>
-        <Link to="/vos-infos">Modifier mon adresse de livraison</Link>
-      </div>
       {cart.map(
         (item) =>
           item && (

@@ -28,3 +28,18 @@ export const selectCurrentDay = createSelector(
   [selectApp],
   (app) => app.currentDate.day
 );
+
+export const selectCanDeliver = createSelector(
+  [selectApp],
+  (app) => app.canDeliver
+);
+
+export const selectOriginAddress = createSelector(
+  [selectApp],
+  (app) => app.originAddress
+);
+
+export const selectAverageTimeBeforeDeliveryInMinutes = createSelector(
+  [selectApp],
+  (app) => app.averageTimeBeforeDeliveryInMinutes
+);

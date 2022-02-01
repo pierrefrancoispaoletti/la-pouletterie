@@ -1,7 +1,11 @@
 export const config = {
   minimumOrderAmount: 10,
-  minimumOrderHour: "10:30",
-  maximumOrderHour: "13:30",
-  deliveryStartTime: "11:30",
+  minimumOrderHour: "09:30",
+  maximumOrderHour: "23:00",
+  deliveryStartTime: "11:00",
+  deliveryPostalCodes: ["20090", "20167"],
   closingDays: ["dimanche"],
+  maximumDistanceInMeters: 8500,
+  maximumTimeInSeconds: 900,
+  additionalMinutesBeforeDelivery: 10,
 };
