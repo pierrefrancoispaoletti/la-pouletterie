@@ -64,6 +64,20 @@ const AdminReports = () => {
     return computedAmount;
   }, []);
 
+  const computeTotalAmount = useCallback(() => {
+    const totalAmount = filteringFunction()
+      .flatMap((order) => order.products)
+      .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0);
+
+    const totalRefundedAmount = filteringFunction()
+      .flatMap((order) =>
+        order.status === "REMBOURSEE" ? order.products : undefined
+      )
+      .filter((i) => i !== undefined)
+      .reduce((acc, amt) => acc - amt._id.price * amt.quantity, 0);
+    return (totalAmount + totalRefundedAmount).toFixed(2);
+  }, [filteringFunction]);
+
   const users = Array.from(
     new Set(
       rawOrders
@@ -95,32 +109,12 @@ const AdminReports = () => {
     [args]
   );
 
-  console.log(
-    filteringFunction()
-      .flatMap((order) =>
-        order.status !== "REMBOURSEE" ? order.products : undefined
-      )
-      .filter((i) => i !== undefined)
-      .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0)
-  );
-
   return (
     <div>
       <h1>Total des commandes : {rawOrders.length}</h1>
       <h1>Total des produits filtrés : {filteringFunction().length}</h1>
       <h2>
-        Total général :
-        {(
-          filteringFunction()
-            .flatMap((order) => order.products)
-            .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0) +
-          filteringFunction()
-            .flatMap((order) =>
-              order.status === "REMBOURSEE" ? order.products : undefined
-            )
-            .filter((i) => i !== undefined)
-            .reduce((acc, amt) => acc - amt._id.price * amt.quantity, 0)
-        ).toFixed(2)}
+        Total général :{computeTotalAmount()}
         <small>€</small>
       </h2>
       <div
@@ -189,7 +183,7 @@ const AdminReports = () => {
           </thead>
           <tbody>
             {filteringFunction().map((order) => (
-              <tr>
+              <tr key={order._id}>
                 <td>
                   {order.user.lastname} {order.user.firstname}
                 </td>

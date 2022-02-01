@@ -9,6 +9,9 @@ const INITIAL_STATE = {
   },
   isAddProductModalOpen: false,
   isUpdateProductModalOpen: false,
+  currentDate: {
+    day: new Date().toLocaleDateString("fr-FR", { weekday: "long" }),
+  },
 };
 
 export const appReducer = (state = INITIAL_STATE, action) => {

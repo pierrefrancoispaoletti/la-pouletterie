@@ -23,3 +23,8 @@ export const selectIsUpdateProductModalOpen = createSelector(
   [selectApp],
   (app) => app.isUpdateProductModalOpen
 );
+
+export const selectCurrentDay = createSelector(
+  [selectApp],
+  (app) => app.currentDate.day
+);

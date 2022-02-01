@@ -60,7 +60,7 @@ const AdminOrders = () => {
         <tbody>
           {allOrders &&
             allOrders.map((order) => (
-              <tr>
+              <tr key={order._id}>
                 <td>
                   {order.user.firstname} {order.user.lastname}
                 </td>
