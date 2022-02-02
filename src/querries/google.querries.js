@@ -16,7 +16,11 @@ export const getDistanceMatrix = async (origin, dest, postalCode, dispatch) => {
       method: "post",
       url: `${localServerURI}/api/google-api/get-matrix`,
       headers: { "Accept-Language": "fr" },
-      data: { origin: origin.sansAccent(), dest: dest.sansAccent(), now },
+      data: {
+        origin: origin.sansAccent(),
+        dest: `${dest.sansAccent()}, ${postalCode}`,
+        now,
+      },
     });
     const {
       data: { rows },

@@ -11,9 +11,11 @@ import { NoItemMessage } from "../Checkout/checkout.style";
 import { Link } from "react-router-dom";
 import { refundPayment } from "../../querries/payment.querries";
 import { useFetchAllOrders } from "../../CustomHooks/useFetchAllOrders";
+import { selectOriginAddress } from "../../redux/reducers/app/app.selectors";
 const AdminOrders = () => {
   const token = useSelector(selectUserToken);
   const dispatch = useDispatch();
+  const origin = useSelector(selectOriginAddress);
   const allOrders = useSelector(selectAllOrders);
 
   useFetchAllOrders();
@@ -77,7 +79,15 @@ const AdminOrders = () => {
                 </td>
                 <td>{order.status}</td>
                 <td>{order.deliveryMode}</td>
-                <td>{order.deliveryAddress}</td>
+                <td>
+                  <a
+                    rel="noreferrer"
+                    target="_blank"
+                    href={`https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${order.deliveryAddress}&travelmode=driving`}
+                  >
+                    {order.deliveryAddress}
+                  </a>
+                </td>
                 <td>
                   <ul style={{ listStyle: "none" }}>
                     {order.products.map(({ _id, quantity }) => (
