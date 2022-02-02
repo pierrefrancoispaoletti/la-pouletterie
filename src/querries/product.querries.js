@@ -4,6 +4,7 @@ import {
   toggleLoading,
   toggleUpdateProductModal,
 } from "../redux/reducers/app/app.actions";
+import { removeFromCart } from "../redux/reducers/cart/cart.actions";
 import {
   addProductAction,
   deleteProductAction,
@@ -13,7 +14,7 @@ import {
 } from "../redux/reducers/product/product.actions";
 import { localServerURI } from "../_consts/server/server";
 
-export const fetchAllProducts = async (dispatch) => {
+export const fetchAllProducts = async (cart, dispatch) => {
   dispatch(toggleLoading());
   try {
     const response = await axios({
@@ -24,6 +25,25 @@ export const fetchAllProducts = async (dispatch) => {
       data: { products },
     } = response;
     dispatch(setAllProducts(products));
+    const findHiddenProductsInCartAndSubstractIt = (
+      cart,
+      arrayOfHiddenProductsId
+    ) => {
+      cart.forEach((item) => {
+        arrayOfHiddenProductsId.forEach((element) => {
+          if (item._id === element) {
+            dispatch(removeFromCart(item._id));
+          }
+        });
+      });
+    };
+    const isThereHiddenProducts = products.some((item) => item.hidden);
+    if (isThereHiddenProducts) {
+      let filteredProducts = products
+        .filter((product) => product.hidden)
+        .map((item) => item._id);
+      findHiddenProductsInCartAndSubstractIt(cart, filteredProducts);
+    }
     dispatch(toggleLoading());
   } catch (error) {
     dispatch(toggleLoading());

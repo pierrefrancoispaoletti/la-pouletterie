@@ -41,7 +41,6 @@ const INITIAL_STATE = {
   imgURI: "",
   crossed: [],
   allergenes: [],
-  stock: "",
   hidden: false,
 };
 const ProductModal = () => {
@@ -91,7 +90,6 @@ const ProductModal = () => {
     formData.append("category", object.category);
     formData.append("imgURI", object.imgURI);
     formData.append("allergenes", JSON.stringify(object.allergenes));
-    formData.append("stock", object.stock || 1);
     formData.append("hidden", object.hidden);
 
     let validToken = await verifyToken(token, dispatch);
@@ -144,16 +142,6 @@ const ProductModal = () => {
           name="description"
           value={newProduct.description}
           label="Description"
-          handleChange={handleChange}
-        />
-        <TextInput
-          type="number"
-          name="stock"
-          step={1}
-          min={0}
-          pattern="\\d*"
-          value={newProduct.stock}
-          label="Stock"
           handleChange={handleChange}
         />
         <label style={{ alignSelf: "flex-start" }} htmlFor="category-selector">
