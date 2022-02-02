@@ -18,7 +18,6 @@ export const ProductItemContainer = styled.div`
   flex-direction: column;
   justify-content: ${(props) =>
     props.isCart ? "flex-start" : "space-between"};
-  min-height: ${(props) => (props.isCart ? "0" : "485px")};
   align-items: center;
   width: 100%;
   padding: 12px;
@@ -87,6 +86,6 @@ export const ProductImageContainer = styled.div`
   width: fit-content;
   height: fit-content;
   img {
-    border-radius: 30px 30px 30px 100px;
+    border-radius: 30px 30px 30px 30px;
   }
 `;

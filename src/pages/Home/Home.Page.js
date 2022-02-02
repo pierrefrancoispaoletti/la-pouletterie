@@ -25,7 +25,7 @@ const HomePage = () => {
           >
             <CategoryTitle>{category.name}</CategoryTitle>
           </Link>
-          <ProductsContainer>
+          <ProductsContainer horizontal>
             {products.map(
               (product) =>
                 product.category === category.slug && (

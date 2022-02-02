@@ -9,6 +9,17 @@ const isPaymentSelection = (props) => {
   }
 };
 
+const hexToRGB = (hex, alpha) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  if (alpha) {
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  } else {
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+};
 const isSelected = (props) => {
   if (props.selected) {
     return css`
@@ -113,6 +124,10 @@ const buttonStyle = (props) => {
       color: white;
       font-weight: bold;
       margin-bottom: 8px;
+      :active {
+        background: ${hexToRGB(`${colors.red}`, 0.8)};
+        border: 4px solid ${colors.red};
+      }
     `;
   }
   if (props.positive) {
@@ -121,6 +136,10 @@ const buttonStyle = (props) => {
       border: 2px solid green;
       color: white;
       font-weight: bold;
+      :active {
+        background: ${hexToRGB(`${colors.green}`, 0.8)};
+        border: 4px solid ${colors.green};
+      }
     `;
   }
 };
