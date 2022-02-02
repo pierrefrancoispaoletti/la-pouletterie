@@ -25,10 +25,10 @@ export const selectUserFullAddress = createSelector(
     if (tokenDecoded) {
       const {
         user: {
-          address: { addressFirstLine, addressComplement },
+          address: { addressFirstLine },
         },
       } = tokenDecoded;
-      let address = `${addressFirstLine}, ${addressComplement}`;
+      let address = `${addressFirstLine}`;
       return address;
     }
     return;

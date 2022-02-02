@@ -14,7 +14,7 @@ export const getDistanceMatrix = async (origin, dest, postalCode, dispatch) => {
   try {
     const response = await axios({
       method: "post",
-      url: `${localServerURI}/api/google-api`,
+      url: `${localServerURI}/api/google-api/get-matrix`,
       headers: { "Accept-Language": "fr" },
       data: { origin: origin.sansAccent(), dest: dest.sansAccent(), now },
     });

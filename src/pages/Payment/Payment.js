@@ -7,8 +7,9 @@ import { selectClientSecret } from "../../redux/reducers/payment/payment.selecto
 import { PaymentContainer } from "./payment.style";
 import CategoryTitle from "../../components/CategoryTitle/CategoryTitle";
 import { selectCartItemTotal } from "../../redux/reducers/cart/cart.selectors";
+import { STRIPE_PK } from "../../_consts/STRIPE_PK";
 
-const stripePromise = loadStripe("pk_test_eAyr9trbJArTYHJJgEePgULj00lTTB2TXk");
+const stripePromise = loadStripe(STRIPE_PK);
 
 const Payment = () => {
   const paymentIntentClientSecret = useSelector(selectClientSecret);
