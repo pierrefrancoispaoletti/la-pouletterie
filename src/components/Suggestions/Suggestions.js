@@ -28,17 +28,19 @@ const Suggestions = () => {
       <h3>Souvent acheté ensemble :</h3>
       <SuggestionsListUl>
         {crossedProducts?.map((product) => {
-          const { name, price, _id } = product;
+          const { name, price, _id, hidden } = product;
           return (
-            <SuggestionsListLi key={_id}>
-              <span>
-                <span className="suggestion-name">{name} </span>
-                <span className="suggestion-price">
-                  {price} <small>€</small>
+            !hidden && (
+              <SuggestionsListLi key={_id}>
+                <span>
+                  <span className="suggestion-name">{name} </span>
+                  <span className="suggestion-price">
+                    {price} <small>€</small>
+                  </span>
                 </span>
-              </span>
-              <CartControlButtons _id={_id} product={product} />
-            </SuggestionsListLi>
+                <CartControlButtons _id={_id} product={product} />
+              </SuggestionsListLi>
+            )
           );
         })}
       </SuggestionsListUl>
