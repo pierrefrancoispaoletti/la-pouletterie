@@ -6,6 +6,8 @@ import CustomButton from "../../components/CustoButton/CustomButton";
 import TextInput from "../../components/TextInput/TextInput";
 import { registerQuerry } from "../../querries/auth.querries";
 import { FormContainer, LoginContainer } from "../Login/login.style";
+import TextInputAddress from "../../components/TextInputAddress/TextInputAddress";
+import { GOOGLE_API_KEY_FOR_PLACE } from "../../_consts/GOOGLE_API_KEY";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -69,10 +71,31 @@ const Register = () => {
   //   }
   // };
 
+  const handleChangeAddressAndAutoCompletePostalCode = (place) => {
+    const { formatted_address, address_components } = place;
+    setNewUser((prevState) => ({
+      ...prevState,
+      addressFirstLine: formatted_address,
+    }));
+    // eslint-disable-next-line array-callback-return
+    const postalCode = address_components.find((element) => {
+      if (element["types"][0] === "postal_code") {
+        return element;
+      }
+    });
+    if (postalCode.long_name) {
+      setNewUser((prevState) => ({
+        ...prevState,
+        addressComplement: postalCode.long_name,
+      }));
+    }
+  };
+
+  console.log(newUser);
+
   return (
     <LoginContainer>
       <CategoryTitle>Inscription</CategoryTitle>
-      <div>Tous les champs sont obligatoires</div>
       <FormContainer onSubmit={handleSubmit}>
         <TextInput
           required
@@ -114,7 +137,7 @@ const Register = () => {
           value={newUser.phone}
           handleChange={handleChange}
         />
-        <TextInput
+        {/* <TextInput
           required
           type="text"
           name="addressFirstLine"
@@ -122,6 +145,24 @@ const Register = () => {
           // error={error.addressFirstLine}
           value={newUser.addressFirstLine}
           handleChange={handleChange}
+        /> */}
+        <TextInputAddress
+          required
+          label="Votre addresse (Obligatoire)"
+          apiKey={GOOGLE_API_KEY_FOR_PLACE}
+          placeholder=""
+          inputAutocompleteValue={newUser.addressFirstLine}
+          value={newUser.addressFirstLine}
+          onChange={handleChange}
+          type="text"
+          name="addressFirstLine"
+          onPlaceSelected={(place) => {
+            handleChangeAddressAndAutoCompletePostalCode(place);
+          }}
+          options={{
+            types: ["address"],
+            componentRestrictions: { country: "fr" },
+          }}
         />
         <TextInput
           type="text"
