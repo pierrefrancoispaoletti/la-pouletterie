@@ -18,7 +18,6 @@ import {
 } from "./product-item.style";
 
 const ProductItem = ({ children, isCart, ...product }) => {
-  console.log("mounted");
   const dispatch = useDispatch();
   const cart = useSelector(selectCartItems);
   return (

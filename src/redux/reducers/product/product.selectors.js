@@ -38,3 +38,8 @@ export const selectCrossedProductsToEdit = createSelector(
       return filteredProducts;
     })
 );
+
+export const selectIsOpenProductDetails = createSelector(
+  [selectProduct],
+  (product) => product.isOpenProductDetails
+);

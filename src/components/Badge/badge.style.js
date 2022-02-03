@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const BadgeContainer = styled.div`
   display: flex;
+  z-index: 2;
   align-items: center;
   justify-content: center;
   text-align: center;

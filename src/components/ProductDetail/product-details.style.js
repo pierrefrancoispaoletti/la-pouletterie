@@ -17,7 +17,7 @@ export const isOpen = (props) => {
 };
 export const ProductDetailContainer = styled.div`
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   right: 0;
   left: 0;
   bottom: 0;

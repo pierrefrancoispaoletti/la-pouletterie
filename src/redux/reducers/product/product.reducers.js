@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   products: [],
   selectedProduct: {},
   selectedProductToEdit: {},
+  isOpenProductDetails: false,
 };
 
 export const productReducer = (state = INITIAL_STATE, action) => {
@@ -18,6 +19,7 @@ export const productReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         selectedProduct: action.payload,
+        isOpenProductDetails: !state.isOpenProductDetails,
       };
     case productActionTypes.ADD_PRODUCT:
       return {

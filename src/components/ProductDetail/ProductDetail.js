@@ -7,7 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProduct } from "../../redux/reducers/product/product.actions";
 
 //selectors
-import { selectSelectedProduct } from "../../redux/reducers/product/product.selectors";
+import {
+  selectIsOpenProductDetails,
+  selectSelectedProduct,
+} from "../../redux/reducers/product/product.selectors";
 
 //components
 import CustomButton from "../CustoButton/CustomButton";
@@ -23,11 +26,12 @@ import { localServerURI } from "../../_consts/server/server";
 
 const ProductDetail = () => {
   const selectedProduct = useSelector(selectSelectedProduct);
+  const isOpenProductDetails = useSelector(selectIsOpenProductDetails);
   const dispatch = useDispatch();
   const { imgURI } = selectedProduct;
 
   return (
-    <ProductDetailContainer open={selectedProduct.name}>
+    <ProductDetailContainer open={isOpenProductDetails}>
       <div>
         <div>
           <CustomButton
