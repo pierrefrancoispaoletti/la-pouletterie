@@ -19,7 +19,7 @@ const ProductsPage = () => {
           category.slug === paramCat && (
             <div key={category.slug}>
               <CategoryTitle>{category.name}</CategoryTitle>
-              <ProductsContainer>
+              <ProductsContainer vertical>
                 {products.map(
                   (product) =>
                     product.category === paramCat && (

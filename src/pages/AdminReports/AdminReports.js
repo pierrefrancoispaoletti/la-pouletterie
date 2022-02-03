@@ -196,8 +196,8 @@ const AdminReports = () => {
                 </td>
                 <td>
                   <ul style={{ listStyle: "none" }}>
-                    {order.products.map(({ _id, quantity }) => (
-                      <li style={{ textAlign: "center" }}>
+                    {order.products.map(({ _id, quantity }, index) => (
+                      <li key={_id + index} style={{ textAlign: "center" }}>
                         {_id.name} x {quantity}
                       </li>
                     ))}

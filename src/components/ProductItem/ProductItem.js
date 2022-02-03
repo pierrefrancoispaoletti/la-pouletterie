@@ -1,6 +1,6 @@
 import { faEye } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/reducers/cart/cart.actions";
 import { selectCartItems } from "../../redux/reducers/cart/cart.selectors";
@@ -18,6 +18,7 @@ import {
 } from "./product-item.style";
 
 const ProductItem = ({ children, isCart, ...product }) => {
+  console.log("mounted");
   const dispatch = useDispatch();
   const cart = useSelector(selectCartItems);
   return (
@@ -39,6 +40,7 @@ const ProductItem = ({ children, isCart, ...product }) => {
           <img
             src={`${localServerURI}/uploads/${product.imgURI}`}
             alt={product?.name}
+            loading="lazy"
           />
           {!isCart && (
             <CustomButton
@@ -71,4 +73,4 @@ const ProductItem = ({ children, isCart, ...product }) => {
   );
 };
 
-export default ProductItem;
+export default memo(ProductItem);

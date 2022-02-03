@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { colors } from "../../_consts/colors/colors";
 
 const isLoading = (props) => {
-  if (props.loading) {
+  if (props.isLoading) {
     return css`
       backdrop-filter: blur(15px);
     `;

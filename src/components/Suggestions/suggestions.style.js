@@ -4,7 +4,6 @@ export const SuggestionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 12px;
   h3 {
     font-size: 1.6em;
     text-decoration: underline;

@@ -12,11 +12,32 @@ const horizontalScroll = (props) => {
       overflow: auto;
       & > div {
         display: flex;
-        max-width: 100%;
+        width: 100%;
         flex-direction: column;
         & img {
           width: 200px;
           height: 200px;
+        }
+      }
+      @media (min-width: 600px) {
+        box-sizing: content-box;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        & > div {
+          margin: 12px 12px;
+          display: flex;
+          width: 30%;
+          height: auto;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          & img {
+            width: 200px;
+            height: 200px;
+          }
         }
       }
     `;
@@ -35,17 +56,16 @@ const verticalScroll = (props) => {
         flex-direction: row;
         flex-wrap: wrap;
         align-items: flex-start;
-        justify-content: space-around;
+        justify-content: center;
         width: 100%;
         & > div {
-          min-height: 485px;
-          margin: 12px auto;
+          margin: 12px 12px;
           display: flex;
-          max-width: 30%;
+          width: 30%;
           height: auto;
           flex-direction: column;
-          align-items: stretch;
-          justify-content: space-between;
+          align-items: center;
+          justify-content: flex-start;
           & img {
             width: 200px;
             height: 200px;

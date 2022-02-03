@@ -64,6 +64,7 @@ const ProductDetail = () => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
+            marginTop: "12px",
           }}
         >
           <CustomButton

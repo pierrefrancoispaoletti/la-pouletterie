@@ -44,7 +44,13 @@ const Header = () => {
     <HeaderContainer>
       <div>
         <Link to="/">
-          <img src={Logo} alt="logo pouletterie" width="100" height="100" />
+          <img
+            src={Logo}
+            alt="logo pouletterie"
+            width="100"
+            height="100"
+            loading="lazy"
+          />
         </Link>
       </div>
       <ButtonsContainer>

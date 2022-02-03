@@ -1,33 +1,43 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Checkout from "../../pages/Checkout/Checkout";
-import HomePage from "../../pages/Home/Home.Page";
-import Login from "../../pages/Login/Login";
-import ProductsPage from "../../pages/Products/Products.Page";
-import Header from "../Header/Header";
-import LocalMessage from "../LocalMessage/LocalMessage";
-import Menu from "../Menu/Menu";
-import ProductDetail from "../ProductDetail/ProductDetail";
+import React, { lazy, Suspense } from "react";
+
 import { useSelector } from "react-redux";
 import { selectUserTokenDecoded } from "../../redux/reducers/user/user.selectors";
-import Register from "../../pages/Register/Register";
-import UserBar from "../UserTopBar/UserTopBar";
-import User from "../../pages/User/User";
-import Loader from "../Loader/Loader";
 import {
   selectIsAddProductModalOpen,
   selectIsUpdateProductModalOpen,
   selectLoading,
 } from "../../redux/reducers/app/app.selectors";
-import { AppContainer } from "./app.style";
-import AdminTopBar from "../AdminTopBar/AdminTopBar";
+
 import { useFetchAllProducts } from "../../CustomHooks/useFetchAllProducts";
+
+import { Route, Routes } from "react-router-dom";
+
+import Header from "../Header/Header";
+import Menu from "../Menu/Menu";
+import LocalMessage from "../LocalMessage/LocalMessage";
+import ProductDetail from "../ProductDetail/ProductDetail";
+import AdminTopBar from "../AdminTopBar/AdminTopBar";
+import UserBar from "../UserTopBar/UserTopBar";
+import Loader from "../Loader/Loader";
 import ProductModal from "../ProductModal/ProductModal";
 import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
-import Payment from "../../pages/Payment/Payment";
-import UserOrders from "../../pages/UserOrders/UserOrders";
-import AdminOrders from "../../pages/AdminOrders/AdminOrders";
-import AdminReports from "../../pages/AdminReports/AdminReports";
+
+import { AppContainer } from "./app.style";
+
+// const Login = lazy(() => import("../../pages/Login/Login"));
+
+const Checkout = lazy(() => import("../../pages/Checkout/Checkout"));
+const HomePage = lazy(() => import("../../pages/Home/Home.Page"));
+const Login = lazy(() => import("../../pages/Login/Login"));
+const ProductsPage = lazy(() => import("../../pages/Products/Products.Page"));
+const Register = lazy(() => import("../../pages/Register/Register"));
+const User = lazy(() => import("../../pages/User/User"));
+const Payment = lazy(() => import("../../pages/Payment/Payment"));
+const UserOrders = lazy(() => import("../../pages/UserOrders/UserOrders"));
+const AdminOrders = lazy(() => import("../../pages/AdminOrders/AdminOrders"));
+const AdminReports = lazy(() =>
+  import("../../pages/AdminReports/AdminReports")
+);
 
 const App = () => {
   const user = useSelector(selectUserTokenDecoded);
@@ -43,36 +53,50 @@ const App = () => {
       {user && user.user.role === "admin" && <AdminTopBar />}
       <LocalMessage />
       {isLoading && <Loader />}
-      <Routes>
-        <Route exact path="/" element={<HomePage />} />
-        <Route path="/produits/:category" element={<ProductsPage />} />
-        <Route path="/connexion" element={!user ? <Login /> : <HomePage />} />
-        <Route
-          path="/inscription"
-          element={!user ? <Register /> : <HomePage />}
-        />
-        <Route path="/vos-infos" element={user ? <User /> : <HomePage />} />
-        <Route
-          path="/vos-commandes"
-          element={
-            user && user.user.role === "client" ? <UserOrders /> : <HomePage />
-          }
-        />
-        <Route path="/panier" element={<Checkout />} />
-        <Route path="/paiement" element={user ? <Payment /> : <HomePage />} />
-        <Route
-          path="/commandes"
-          element={
-            user && user.user.role === "admin" ? <AdminOrders /> : <HomePage />
-          }
-        />
-        <Route
-          path="/rapports"
-          element={
-            user && user.user.role === "admin" ? <AdminReports /> : <HomePage />
-          }
-        />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/produits/:category" element={<ProductsPage />} />
+          <Route path="/connexion" element={!user ? <Login /> : <HomePage />} />
+          <Route
+            path="/inscription"
+            element={!user ? <Register /> : <HomePage />}
+          />
+          <Route path="/vos-infos" element={user ? <User /> : <HomePage />} />
+          <Route
+            path="/vos-commandes"
+            element={
+              user && user.user.role === "client" ? (
+                <UserOrders />
+              ) : (
+                <HomePage />
+              )
+            }
+          />
+          <Route path="/panier" element={<Checkout />} />
+          <Route path="/paiement" element={user ? <Payment /> : <HomePage />} />
+          <Route
+            path="/commandes"
+            element={
+              user && user.user.role === "admin" ? (
+                <AdminOrders />
+              ) : (
+                <HomePage />
+              )
+            }
+          />
+          <Route
+            path="/rapports"
+            element={
+              user && user.user.role === "admin" ? (
+                <AdminReports />
+              ) : (
+                <HomePage />
+              )
+            }
+          />
+        </Routes>
+      </Suspense>
       <ProductDetail />
       {user && user.user.role === "admin" && isAddProductModalOpen && (
         <ProductModal />

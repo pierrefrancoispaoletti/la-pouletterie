@@ -6,7 +6,7 @@ import { ChickenLoaderContainer } from "./loader.style";
 const Loader = () => {
   const isLoading = useSelector(selectLoading);
   return (
-    <ChickenLoaderContainer loading={isLoading}>
+    <ChickenLoaderContainer isLoading={isLoading}>
       <div className="chicken-loader">
         <span></span>
       </div>
