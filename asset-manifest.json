@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/la-pouletterie/static/css/main.3ce23c5e.css",
-    "main.js": "/la-pouletterie/static/js/main.85fbeb56.js",
-    "static/js/782.b6e55832.chunk.js": "/la-pouletterie/static/js/782.b6e55832.chunk.js",
-    "static/js/466.d324edb0.chunk.js": "/la-pouletterie/static/js/466.d324edb0.chunk.js",
+    "main.js": "/la-pouletterie/static/js/main.c97f68d1.js",
+    "static/js/782.060f4ab9.chunk.js": "/la-pouletterie/static/js/782.060f4ab9.chunk.js",
+    "static/js/466.38834c31.chunk.js": "/la-pouletterie/static/js/466.38834c31.chunk.js",
     "static/js/162.bbf6bff9.chunk.js": "/la-pouletterie/static/js/162.bbf6bff9.chunk.js",
-    "static/js/228.236e6e67.chunk.js": "/la-pouletterie/static/js/228.236e6e67.chunk.js",
+    "static/js/228.c2e1e699.chunk.js": "/la-pouletterie/static/js/228.c2e1e699.chunk.js",
     "static/js/431.12c8837a.chunk.js": "/la-pouletterie/static/js/431.12c8837a.chunk.js",
     "static/js/820.30478dfd.chunk.js": "/la-pouletterie/static/js/820.30478dfd.chunk.js",
     "static/js/484.1f312a39.chunk.js": "/la-pouletterie/static/js/484.1f312a39.chunk.js",
@@ -15,11 +15,11 @@
     "static/media/ok2-removebg-preview.png": "/la-pouletterie/static/media/ok2-removebg-preview.144ea29488d417297600.png",
     "index.html": "/la-pouletterie/index.html",
     "main.3ce23c5e.css.map": "/la-pouletterie/static/css/main.3ce23c5e.css.map",
-    "main.85fbeb56.js.map": "/la-pouletterie/static/js/main.85fbeb56.js.map",
-    "782.b6e55832.chunk.js.map": "/la-pouletterie/static/js/782.b6e55832.chunk.js.map",
-    "466.d324edb0.chunk.js.map": "/la-pouletterie/static/js/466.d324edb0.chunk.js.map",
+    "main.c97f68d1.js.map": "/la-pouletterie/static/js/main.c97f68d1.js.map",
+    "782.060f4ab9.chunk.js.map": "/la-pouletterie/static/js/782.060f4ab9.chunk.js.map",
+    "466.38834c31.chunk.js.map": "/la-pouletterie/static/js/466.38834c31.chunk.js.map",
     "162.bbf6bff9.chunk.js.map": "/la-pouletterie/static/js/162.bbf6bff9.chunk.js.map",
-    "228.236e6e67.chunk.js.map": "/la-pouletterie/static/js/228.236e6e67.chunk.js.map",
+    "228.c2e1e699.chunk.js.map": "/la-pouletterie/static/js/228.c2e1e699.chunk.js.map",
     "431.12c8837a.chunk.js.map": "/la-pouletterie/static/js/431.12c8837a.chunk.js.map",
     "820.30478dfd.chunk.js.map": "/la-pouletterie/static/js/820.30478dfd.chunk.js.map",
     "484.1f312a39.chunk.js.map": "/la-pouletterie/static/js/484.1f312a39.chunk.js.map",
@@ -29,6 +29,6 @@
   },
   "entrypoints": [
     "static/css/main.3ce23c5e.css",
-    "static/js/main.85fbeb56.js"
+    "static/js/main.c97f68d1.js"
   ]
 }
