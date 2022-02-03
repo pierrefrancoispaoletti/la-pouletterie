@@ -10,9 +10,10 @@ export const substractFromCart = (_id) => ({
   payload: _id,
 });
 
-export const removeFromCart = (_id) => ({
+export const removeFromCart = (_id, message = "") => ({
   type: cartActionTypes.REMOVE_FROM_CART,
   payload: _id,
+  message: message,
 });
 
 export const emptyCart = () => ({

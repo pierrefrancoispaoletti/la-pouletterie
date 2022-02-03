@@ -78,7 +78,9 @@ export const appReducer = (state = INITIAL_STATE, action) => {
         ...state,
         message: {
           status: "error",
-          message: `Produit supprimé(e) du panier`,
+          message: !action.message
+            ? `Produit supprimé(e) du panier`
+            : action.message,
         },
       };
     }

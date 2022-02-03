@@ -32,7 +32,12 @@ export const fetchAllProducts = async (cart, dispatch) => {
       cart.forEach((item) => {
         arrayOfHiddenProductsId.forEach((element) => {
           if (item._id === element) {
-            dispatch(removeFromCart(item._id));
+            dispatch(
+              removeFromCart(
+                item._id,
+                `le produit ${item.name} à été supprimé du panier car il n'est plus disponible`
+              )
+            );
           }
         });
       });
