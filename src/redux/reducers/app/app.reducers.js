@@ -1,4 +1,5 @@
 import { appActionTypes } from "./app.types";
+import { cartActionTypes } from "../cart/cart.types";
 
 const INITIAL_STATE = {
   menuOpen: false,
@@ -54,6 +55,33 @@ export const appReducer = (state = INITIAL_STATE, action) => {
         ...state,
         averageTimeBeforeDeliveryInMinutes: action.payload,
       };
+    case cartActionTypes.ADD_TO_CART: {
+      return {
+        ...state,
+        message: {
+          status: "success",
+          message: `Produit ajouté(e) au panier`,
+        },
+      };
+    }
+    case cartActionTypes.SUBSTRACT_FROM_CART: {
+      return {
+        ...state,
+        message: {
+          status: "error",
+          message: `Produit soustrait(e) du panier`,
+        },
+      };
+    }
+    case cartActionTypes.REMOVE_FROM_CART: {
+      return {
+        ...state,
+        message: {
+          status: "error",
+          message: `Produit supprimé(e) du panier`,
+        },
+      };
+    }
     default:
       return state;
   }

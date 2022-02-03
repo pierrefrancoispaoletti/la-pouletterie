@@ -13,7 +13,6 @@ const AddressElement = () => {
         textAlign: "center",
         border: "6px solid black",
         padding: "0 8px 8px 8px",
-        margin: "8px auto",
         width: "100%",
       }}
     >

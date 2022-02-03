@@ -1,8 +1,11 @@
+import { faEye } from "@fortawesome/pro-duotone-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/reducers/cart/cart.actions";
 import { selectCartItems } from "../../redux/reducers/cart/cart.selectors";
 import { getSpecificItemCount } from "../../redux/reducers/cart/cart.utils";
+import { selectProduct } from "../../redux/reducers/product/product.actions";
 import { localServerURI } from "../../_consts/server/server";
 import Badge from "../Badge/Badge";
 import CustomButton from "../CustoButton/CustomButton";
@@ -10,7 +13,6 @@ import {
   ProductImageContainer,
   ProductItemButtonContainer,
   ProductItemContainer,
-  ProductItemDescription,
   ProductItemTitleAndPrice,
   ProductItemTop,
 } from "./product-item.style";
@@ -22,7 +24,18 @@ const ProductItem = ({ children, isCart, ...product }) => {
     <ProductItemContainer isCart={isCart}>
       <ProductItemTop isCart={isCart}>
         <ProductImageContainer style={{ position: "relative" }}>
-          {!isCart && <Badge>{getSpecificItemCount(product._id, cart)}</Badge>}
+          {!isCart && (
+            <>
+              <Badge right>{getSpecificItemCount(product._id, cart)}</Badge>
+              <Badge
+                left
+                style={{ background: "rgba(255,255,255, 0.2)" }}
+                onClick={() => dispatch(selectProduct(product))}
+              >
+                <FontAwesomeIcon icon={faEye} color="white" size="2x" />
+              </Badge>
+            </>
+          )}
           <img
             src={`${localServerURI}/uploads/${product.imgURI}`}
             alt={product?.name}

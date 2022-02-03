@@ -48,7 +48,7 @@ export const ChickenLoaderContainer = styled.div`
       /* Small beak */
       animation: birdBottomBeak 4s linear infinite;
       border: 2.4rem solid transparent;
-      border-right: 2.4rem solid darken(orange, 10);
+      border-right: 2.4rem solid orange;
     }
 
     span {

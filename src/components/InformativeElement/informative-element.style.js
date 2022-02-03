@@ -6,8 +6,6 @@ export const InformativeElementContainer = styled.div`
   text-align: center;
   justify-content: center;
   padding: 18px;
-  width: 70%;
-  margin: 18px auto;
+  width: 100%;
   border: 3px solid ${colors.red};
-  border-radius: 50px;
 `;

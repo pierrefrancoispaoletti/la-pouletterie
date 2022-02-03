@@ -47,13 +47,13 @@ export const ProductItemTitleAndPrice = styled.div`
   h3 {
     margin: 0;
     margin-bottom: 22px;
-    font-size: 1.3em;
+    font-size: 1em;
     text-transform: uppercase;
     text-align: left;
     align-self: flex-start;
   }
   span {
-    font-size: 1.3em;
+    font-size: 1em;
     font-weight: bold;
     display: inline-block;
     margin-left: 12px;

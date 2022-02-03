@@ -28,6 +28,7 @@ import {
 import AddressElement from "../../components/AddressElement /AddressElement";
 import { useCheckDistanceFromOrigin } from "../../CustomHooks/useCheckDistanceFromOrigin";
 import { config } from "../../_consts/config";
+import { currentHour } from "../../utils/utils";
 
 const Checkout = () => {
   const cart = useSelector(selectCartItems);
@@ -37,17 +38,25 @@ const Checkout = () => {
     selectAverageTimeBeforeDeliveryInMinutes
   );
 
-  const { minimumOrderAmount, additionalMinutesBeforeDelivery } = config;
+  const {
+    minimumOrderAmount,
+    additionalMinutesBeforeDelivery,
+    deliveryStartTime,
+  } = config;
   useCheckDistanceFromOrigin();
   useCreatePaymentIntent();
   return cart.length ? (
     <CheckoutContainer>
-      {!canDeliver || total < minimumOrderAmount ? (
+      {!canDeliver ||
+      total < minimumOrderAmount ||
+      currentHour < deliveryStartTime ? (
         <InformativElement>
           {!canDeliver
             ? "Votre Addresse actuelle ne permet pas la livraison"
             : total < minimumOrderAmount
             ? "Le montant de votre commande actuel ne permet pas a livraison"
+            : currentHour < deliveryStartTime
+            ? `Les livraisons commencent à partir de ${deliveryStartTime}h , mais vous pouvez commander dés maintenant afin d'être livré le plus tôt possible`
             : ""}
         </InformativElement>
       ) : (

@@ -83,7 +83,7 @@ const Header = () => {
             to="/panier"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <Badge>{cartItemCount}</Badge>
+            <Badge right>{cartItemCount}</Badge>
             <IconStyled icon={faBagsShopping} size="2x" />
           </Link>
           {cartItemCount > 0 && (

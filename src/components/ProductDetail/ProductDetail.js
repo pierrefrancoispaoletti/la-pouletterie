@@ -24,7 +24,7 @@ import { localServerURI } from "../../_consts/server/server";
 const ProductDetail = () => {
   const selectedProduct = useSelector(selectSelectedProduct);
   const dispatch = useDispatch();
-  const { name, imgURI } = selectedProduct;
+  const { imgURI } = selectedProduct;
 
   return (
     <ProductDetailContainer open={selectedProduct.name}>
@@ -40,7 +40,9 @@ const ProductDetail = () => {
           </CustomButton>
           <div
             style={{
-              backgroundImage: `url(${localServerURI}/uploads/${imgURI})`,
+              backgroundImage: `url(${localServerURI}/uploads/${
+                imgURI || "pouletterie.jpeg"
+              })`,
               backgroundPosition: "center center",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",

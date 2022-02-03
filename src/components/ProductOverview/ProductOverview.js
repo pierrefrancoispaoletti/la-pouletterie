@@ -18,7 +18,7 @@ const ProductOverview = () => {
       >
         <h2>{name}</h2>
         <span>
-          {price} <small>€</small>
+          {price?.toFixed(2)} <small>€</small>
         </span>
       </div>
       <div>

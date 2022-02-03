@@ -24,6 +24,7 @@ import CustomButton from "../CustoButton/CustomButton";
 import InformativElement from "../InformativeElement/InformativeElement";
 
 import { config } from "../../_consts/config";
+import { currentHour } from "../../utils/utils";
 
 const OrderAndPaymentButtons = () => {
   const navigate = useNavigate();
@@ -45,10 +46,6 @@ const OrderAndPaymentButtons = () => {
     minimumOrderHour,
   } = config;
 
-  const currentHour = new Date().toLocaleTimeString("fr-FR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
   const handleTakeAwayMethod = (method) => {
     setSelectTakeAway(method);
     setSelectPaymentMethod("");
