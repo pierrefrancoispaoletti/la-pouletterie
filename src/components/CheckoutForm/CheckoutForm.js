@@ -53,6 +53,15 @@ const CheckoutForm = () => {
     });
     if (error) {
       dispatch(setMessage({ status: "error", message: error.message }));
+      if (error.payment_intent.status === "canceled") {
+        dispatch(
+          setMessage({
+            status: "error",
+            message: "Vous avez mis trop de temps pour valider votre commande",
+          })
+        );
+        navigate("/panier");
+      }
     } else {
       stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
         switch (paymentIntent.status) {
