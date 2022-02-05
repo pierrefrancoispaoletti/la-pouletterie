@@ -11,12 +11,12 @@ const OrderItem = ({ ...order }) => {
   return (
     <OrderItemContainer>
       <ItemOrderDate>
-        {date}{" "}
+        {date}
         <div>
-          Total :{" "}
+          Total :
           {products
-            .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0)
-            .toFixed(2)}{" "}
+            .reduce((acc, amt) => acc + amt.price * amt.quantity, 0)
+            .toFixed(2)}
           €
         </div>
       </ItemOrderDate>
@@ -24,10 +24,12 @@ const OrderItem = ({ ...order }) => {
         <ItemOrderUl>
           <summary>
             <span>status de la commande: {status}</span>
-            {products.map(({ _id: { name, price }, quantity }) => (
+            {products.map(({ _id, name, price, quantity }) => (
               <li>
                 <div>
-                  {`${name} x ${quantity} = ${price * quantity.toFixed(2)} €`}
+                  {`${name} ${
+                    _id === null ? "(indisponible)" : ""
+                  } x ${quantity} = ${price * quantity.toFixed(2)} €`}
                 </div>
               </li>
             ))}

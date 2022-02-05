@@ -23,6 +23,8 @@ import ProductModal from "../ProductModal/ProductModal";
 import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
 
 import { AppContainer } from "./app.style";
+import { useCheckToken } from "../../CustomHooks/useCheckToken";
+import UpdatePasswordElement from "../UpdatePasswordElement/UpdatePasswordElement";
 
 // const Login = lazy(() => import("../../pages/Login/Login"));
 
@@ -45,6 +47,7 @@ const App = () => {
   const isAddProductModalOpen = useSelector(selectIsAddProductModalOpen);
   const isUpdateProductModalOpen = useSelector(selectIsUpdateProductModalOpen);
   useFetchAllProducts();
+  useCheckToken();
   return (
     <AppContainer>
       <Header />
@@ -65,13 +68,7 @@ const App = () => {
           <Route path="/vos-infos" element={user ? <User /> : <HomePage />} />
           <Route
             path="/vos-commandes"
-            element={
-              user && user.user.role === "client" ? (
-                <UserOrders />
-              ) : (
-                <HomePage />
-              )
-            }
+            element={user ? <UserOrders /> : <HomePage />}
           />
           <Route path="/panier" element={<Checkout />} />
           <Route path="/paiement" element={user ? <Payment /> : <HomePage />} />
@@ -104,6 +101,7 @@ const App = () => {
       {user && user.user.role === "admin" && isUpdateProductModalOpen && (
         <UpdateProductModal />
       )}
+      <UpdatePasswordElement />
     </AppContainer>
   );
 };

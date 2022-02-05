@@ -15,6 +15,7 @@ export const useFetchAllOrders = () => {
       interval = setInterval(async () => {
         await fetchAllOrders(token, dispatch);
       }, 10000);
+      // on fetch les commandes toutes les 10 secondes
     }
     return () => {
       setMounted(false);

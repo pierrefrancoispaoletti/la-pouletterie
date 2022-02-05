@@ -90,9 +90,9 @@ const AdminOrders = () => {
                 </td>
                 <td>
                   <ul style={{ listStyle: "none" }}>
-                    {order.products.map(({ _id, quantity }) => (
-                      <li>
-                        {_id.name} x {quantity}
+                    {order.products.map(({ quantity, name }, index) => (
+                      <li key={order._id + index}>
+                        {name} x {quantity}
                       </li>
                     ))}
                   </ul>

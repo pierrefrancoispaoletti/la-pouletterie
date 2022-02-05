@@ -1,5 +1,6 @@
 import axios from "axios";
 import { setMessage, toggleLoading } from "../redux/reducers/app/app.actions";
+import { emptyCart } from "../redux/reducers/cart/cart.actions";
 import { setClientSecret } from "../redux/reducers/payment/payment.actions";
 import { localServerURI } from "../_consts/server/server";
 
@@ -41,6 +42,8 @@ export const createPaymentIntent = async (
         })
       );
     }
+    navigate("/");
+    dispatch(emptyCart());
   }
 };
 

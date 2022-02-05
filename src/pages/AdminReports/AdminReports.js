@@ -56,8 +56,8 @@ const AdminReports = () => {
       .reduce(
         (acc, amt) =>
           status !== "REMBOURSEE"
-            ? acc + amt._id.price * amt.quantity
-            : acc - amt._id.price * amt.quantity,
+            ? acc + amt.price * amt.quantity
+            : acc - amt.price * amt.quantity,
         0
       )
       .toFixed(2);
@@ -67,14 +67,14 @@ const AdminReports = () => {
   const computeTotalAmount = useCallback(() => {
     const totalAmount = filteringFunction()
       .flatMap((order) => order.products)
-      .reduce((acc, amt) => acc + amt._id.price * amt.quantity, 0);
+      .reduce((acc, amt) => acc + amt.price * amt.quantity, 0);
 
     const totalRefundedAmount = filteringFunction()
       .flatMap((order) =>
         order.status === "REMBOURSEE" ? order.products : undefined
       )
       .filter((i) => i !== undefined)
-      .reduce((acc, amt) => acc - amt._id.price * amt.quantity, 0);
+      .reduce((acc, amt) => acc - amt.price * amt.quantity, 0);
     return (totalAmount + totalRefundedAmount).toFixed(2);
   }, [filteringFunction]);
 
@@ -196,9 +196,9 @@ const AdminReports = () => {
                 </td>
                 <td>
                   <ul style={{ listStyle: "none" }}>
-                    {order.products.map(({ _id, quantity }, index) => (
+                    {order.products.map(({ _id, quantity, name }, index) => (
                       <li key={_id + index} style={{ textAlign: "center" }}>
-                        {_id.name} x {quantity}
+                        {name} x {quantity}
                       </li>
                     ))}
                   </ul>

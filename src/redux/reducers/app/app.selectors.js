@@ -24,6 +24,11 @@ export const selectIsUpdateProductModalOpen = createSelector(
   (app) => app.isUpdateProductModalOpen
 );
 
+export const selectIsUpdatePasswordModalOpen = createSelector(
+  [selectApp],
+  (app) => app.isUpdatePasswordModalOpen
+);
+
 export const selectCurrentDay = createSelector(
   [selectApp],
   (app) => app.currentDate.day

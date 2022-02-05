@@ -1,5 +1,9 @@
 import axios from "axios";
-import { setMessage, toggleLoading } from "../redux/reducers/app/app.actions";
+import {
+  setMessage,
+  toggleLoading,
+  toggleUpdatePasswordModal,
+} from "../redux/reducers/app/app.actions";
 import { getUserToken, logout } from "../redux/reducers/user/user.actions";
 import { localServerURI } from "../_consts/server/server";
 
@@ -144,6 +148,7 @@ export const verifyToken = async (userToken, dispatch) => {
         message: error.response.data.message,
       })
     );
+    dispatch(logout());
     return false;
   }
 };
@@ -169,6 +174,45 @@ export const deleteUser = async (_id, userToken, dispatch) => {
       })
     );
     dispatch(logout());
+  } catch (error) {
+    dispatch(toggleLoading());
+    dispatch(
+      setMessage({
+        status: "error",
+        message: error.response.data.message,
+      })
+    );
+  }
+};
+
+export const updatePasswod = async (updatePasswordObject, dispatch) => {
+  dispatch(toggleLoading());
+  const { email, newPassword, confirmPassword } = updatePasswordObject;
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${localServerURI}/api/user/lost-password`,
+      data: {
+        email,
+        newPassword,
+        confirmPassword,
+      },
+    });
+    const {
+      status,
+      data: { token, message },
+    } = response;
+    dispatch(toggleLoading());
+    dispatch(
+      setMessage({
+        status: status === 200 ? "success" : "error",
+        message: message,
+      })
+    );
+    if (token) {
+      dispatch(getUserToken(token));
+      dispatch(toggleUpdatePasswordModal());
+    }
   } catch (error) {
     dispatch(toggleLoading());
     dispatch(

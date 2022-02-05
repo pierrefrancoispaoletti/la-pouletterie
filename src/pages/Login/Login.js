@@ -5,6 +5,7 @@ import CategoryTitle from "../../components/CategoryTitle/CategoryTitle";
 import CustomButton from "../../components/CustoButton/CustomButton";
 import TextInput from "../../components/TextInput/TextInput";
 import { loginQuerry } from "../../querries/auth.querries";
+import { toggleUpdatePasswordModal } from "../../redux/reducers/app/app.actions";
 import { FormContainer, LoginContainer } from "./login.style";
 
 const Login = () => {
@@ -53,6 +54,13 @@ const Login = () => {
         </CustomButton>
         <Link to="/inscription">Pas encore de compte ? Enregistrez vous !</Link>
       </FormContainer>
+      <CustomButton
+        type="button"
+        negative
+        onClick={() => dispatch(toggleUpdatePasswordModal())}
+      >
+        Mot de passe perdu ?
+      </CustomButton>
     </LoginContainer>
   );
 };

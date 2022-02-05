@@ -37,7 +37,6 @@ const Checkout = () => {
   const averageTimeBeforeDeliveryInMinutes = useSelector(
     selectAverageTimeBeforeDeliveryInMinutes
   );
-
   const {
     minimumOrderAmount,
     additionalMinutesBeforeDelivery,

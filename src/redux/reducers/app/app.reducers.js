@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   },
   isAddProductModalOpen: false,
   isUpdateProductModalOpen: false,
+  isUpdatePasswordModalOpen: false,
   currentDate: {
     day: new Date().toLocaleDateString("fr-FR", { weekday: "long" }),
   },
@@ -44,6 +45,11 @@ export const appReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isUpdateProductModalOpen: !state.isUpdateProductModalOpen,
+      };
+    case appActionTypes.TOGGLE_UPDATE_PASSWORD_MODAL:
+      return {
+        ...state,
+        isUpdatePasswordModalOpen: !state.isUpdatePasswordModalOpen,
       };
     case appActionTypes.CHANGE_CAN_DELIVER:
       return {

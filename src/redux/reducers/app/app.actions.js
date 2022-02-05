@@ -16,6 +16,10 @@ export const toggleUpdateProductModal = () => ({
   type: appActionTypes.TOGGLE_UPDATE_PRODUCT_MODAL,
 });
 
+export const toggleUpdatePasswordModal = () => ({
+  type: appActionTypes.TOGGLE_UPDATE_PASSWORD_MODAL,
+});
+
 export const setMessage = ({ ...message }) => ({
   type: appActionTypes.SET_MESSAGE,
   payload: { status: message.status, message: message.message },

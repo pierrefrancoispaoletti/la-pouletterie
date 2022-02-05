@@ -62,7 +62,7 @@ export const LabelContainer = styled.label`
   position: absolute;
   pointer-events: none;
   left: 5px;
-  top: 35px;
+  top: -2px;
   transition: 300ms ease all;
   text-transform: capitalize;
 

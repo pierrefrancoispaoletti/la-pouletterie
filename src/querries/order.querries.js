@@ -55,6 +55,7 @@ export const fetchAllOrders = async (token, dispatch) => {
 };
 
 export const fetchAllRawOrders = async (token, dispatch) => {
+  dispatch(toggleLoading());
   try {
     const response = await axios({
       method: "GET",
@@ -67,6 +68,7 @@ export const fetchAllRawOrders = async (token, dispatch) => {
     } = response;
 
     dispatch(getAllRawOrders(orders));
+    dispatch(toggleLoading());
   } catch (error) {
     dispatch(toggleLoading());
     dispatch(
@@ -80,7 +82,12 @@ export const createOrder = async (token, order, dispatch, navigate) => {
   const { products, ...others } = order;
   let newOrder = {
     ...others,
-    products: products.map(({ _id, quantity }) => ({ _id, quantity })),
+    products: products.map(({ _id, quantity, name, price }) => ({
+      _id,
+      quantity,
+      name,
+      price,
+    })),
   };
   try {
     const response = await axios({
