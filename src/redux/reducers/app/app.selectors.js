@@ -44,6 +44,12 @@ export const selectOriginAddress = createSelector(
   (app) => app.originAddress
 );
 
+export const selectPhoneNumber = createSelector(
+  [selectApp],
+  (app) => app.phone
+);
+export const selectEmail = createSelector([selectApp], (app) => app.email);
+
 export const selectAverageTimeBeforeDeliveryInMinutes = createSelector(
   [selectApp],
   (app) => app.averageTimeBeforeDeliveryInMinutes

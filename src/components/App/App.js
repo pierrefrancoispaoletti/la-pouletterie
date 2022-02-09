@@ -25,6 +25,7 @@ import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
 import { AppContainer } from "./app.style";
 import { useCheckToken } from "../../CustomHooks/useCheckToken";
 import UpdatePasswordElement from "../UpdatePasswordElement/UpdatePasswordElement";
+import Footer from "../Footer/Footer";
 
 // const Login = lazy(() => import("../../pages/Login/Login"));
 
@@ -102,6 +103,7 @@ const App = () => {
         <UpdateProductModal />
       )}
       <UpdatePasswordElement />
+      <Footer />
     </AppContainer>
   );
 };
