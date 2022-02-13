@@ -25,23 +25,21 @@ const HomePage = () => {
           <ProductsContainer horizontal>
             {products.map(
               (product) =>
-                product.category === category.slug && (
+                product.category === category.slug &&
+                (!product.hidden || (user && user.user.role === "admin")) && (
                   <div key={product._id}>
                     <AdminBar {...product} />
                     {/* si le produit n'est pas caché ou que 
                     l'utilisateur est admin montrer le produit 
                     sinon on ne le montre pas */}
-                    {(!product.hidden ||
-                      (user && user.user.role === "admin")) && (
-                      <ProductItem {...product}>
-                        {/* <CustomButton
+                    <ProductItem {...product}>
+                      {/* <CustomButton
                           type="button"
                           onClick={() => dispatch(selectProduct(product))}
                         >
                           Voir plus
                         </CustomButton> */}
-                      </ProductItem>
-                    )}
+                    </ProductItem>
                   </div>
                 )
             )}

@@ -13,7 +13,7 @@ const AdminReports = () => {
     user: "",
   });
 
-  const generateArrayOfYear = () => {
+  const generateArrayOfYear = useCallback(() => {
     let min = new Date().getFullYear();
     let max = min + 10;
     let years = [];
@@ -22,15 +22,15 @@ const AdminReports = () => {
       years.push(index);
     }
     return years;
-  };
+  }, []);
 
-  const generateArrayofMonth = () => {
+  const generateArrayofMonth = useCallback(() => {
     return Array.from({ length: 12 }, (item, index) => {
       return `${new Date(0, index).toLocaleDateString("fr-FR", {
         month: "long",
       })} ${new Date().getFullYear()}`;
     });
-  };
+  }, []);
 
   const filteringFunction = useCallback(
     () =>
@@ -51,6 +51,7 @@ const AdminReports = () => {
       }),
     [args, rawOrders]
   );
+
   const computeAmountOfOrder = useCallback(({ products, status }) => {
     let computedAmount = products
       .reduce(
@@ -78,27 +79,36 @@ const AdminReports = () => {
     return (totalAmount + totalRefundedAmount).toFixed(2);
   }, [filteringFunction]);
 
-  const users = Array.from(
-    new Set(
-      rawOrders
-        .map((order) => `${order.user.lastname} ${order.user.firstname}`)
-        .filter((i) => i !== undefined)
-    )
+  const selectGenerator = useCallback(
+    (primaryKey = "", secondaryKey = "", thirdKey = "") => {
+      if (primaryKey && secondaryKey && thirdKey) {
+        return Array.from(
+          new Set(
+            rawOrders
+              .map(
+                (order) =>
+                  `${order[primaryKey][secondaryKey]} ${order[primaryKey][thirdKey]}`
+              )
+              .filter((i) => i !== undefined)
+          )
+        );
+      }
+      return Array.from(
+        new Set(
+          rawOrders
+            .map((order) => order[primaryKey])
+            .filter((i) => i !== undefined)
+        )
+      );
+    },
+    [rawOrders]
   );
 
-  const dvModes = Array.from(
-    new Set(
-      rawOrders
-        .map((order) => order.deliveryMode)
-        .filter((i) => i !== undefined)
-    )
-  );
+  const users = selectGenerator("user", "lastname", "firstname");
 
-  const status = Array.from(
-    new Set(
-      rawOrders.map((order) => order.status).filter((i) => i !== undefined)
-    )
-  );
+  const dvModes = selectGenerator("deliveryMode");
+
+  const status = selectGenerator("status");
 
   const handleChange = useCallback(
     (e) => {

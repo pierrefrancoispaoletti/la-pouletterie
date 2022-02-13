@@ -7,11 +7,13 @@ import { selectProducts } from "../../redux/reducers/product/product.selectors";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import { ProductsContainer } from "../Home/home.style";
+import { selectUserTokenDecoded } from "../../redux/reducers/user/user.selectors";
 
 const ProductsPage = () => {
   const params = useParams();
   const { category: paramCat } = params;
   const products = useSelector(selectProducts);
+  const user = useSelector(selectUserTokenDecoded);
   return (
     <main>
       {categories.map(
@@ -22,7 +24,9 @@ const ProductsPage = () => {
               <ProductsContainer vertical>
                 {products.map(
                   (product) =>
-                    product.category === paramCat && (
+                    product.category === paramCat &&
+                    (!product.hidden ||
+                      (user && user.user.role === "admin")) && (
                       <div key={product._id}>
                         <AdminBar {...product} />
                         <ProductItem {...product} key={product._id}>

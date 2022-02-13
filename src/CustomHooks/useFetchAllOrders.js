@@ -14,7 +14,7 @@ export const useFetchAllOrders = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       interval = setInterval(async () => {
         await fetchAllOrders(token, dispatch);
-      }, 10000);
+      }, 3000);
       // on fetch les commandes toutes les 10 secondes
     }
     return () => {
