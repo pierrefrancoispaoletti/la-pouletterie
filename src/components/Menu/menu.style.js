@@ -1,36 +1,18 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { css } from "styled-components";
 import { colors } from "../../_consts/colors/colors";
-
-const fallMenu = keyframes`
-    0% {
-        opacity: 0;
-        height: 100%;
-        visibility: visible;
-        background-color: ${colors.blue};
-    }
-    100% {
-        opacity: 1;
-        height: 0%;
-        visibility: hidden;
-        background-color: unset;
-    }
-`;
 
 const openMenu = (props) => {
   if (props.open) {
     return css`
       opacity: 1;
-      animation: ${fallMenu} 0.5s ease-in;
+      transform: translateY(0);
     `;
   }
   if (!props.open) {
     return css`
       opacity: 0;
-      animation: ${fallMenu} 0.5s ease-out reverse;
-      & a {
-        display: none;
-      }
+      transform: translateY(-1500px);
     `;
   }
 };
@@ -38,6 +20,7 @@ const openMenu = (props) => {
 export const NavMenuContainer = styled.nav`
   position: absolute;
   width: 80%;
+  z-index: 5;
   right: 0;
   left: 0;
   display: flex;
@@ -47,6 +30,7 @@ export const NavMenuContainer = styled.nav`
   background: ${colors.blue};
   transition: all 0.5s ease-in-out;
   border-radius: 8px;
+  box-shadow: 0px 6px 21px 6px #5e5e5e;
   ${openMenu}
 `;
 

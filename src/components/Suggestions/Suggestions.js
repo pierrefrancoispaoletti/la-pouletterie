@@ -1,0 +1,53 @@
+import React from "react";
+
+//redux methods
+import { useSelector } from "react-redux";
+
+//selectors
+import {
+  selectCrossedProducts,
+  selectProducts,
+} from "../../redux/reducers/product/product.selectors";
+
+//Components
+import CartControlButtons from "../CartControlButtons/CartControlButtons";
+
+//styles
+import {
+  SuggestionsContainer,
+  SuggestionsListLi,
+  SuggestionsListUl,
+} from "./suggestions.style";
+
+const Suggestions = () => {
+  const products = useSelector(selectProducts);
+  const crossedProducts = useSelector(selectCrossedProducts(products));
+
+  return crossedProducts?.length ? (
+    <SuggestionsContainer>
+      <h3>Souvent acheté ensemble :</h3>
+      <SuggestionsListUl>
+        {crossedProducts?.map((product) => {
+          const { name, price, _id, hidden } = product;
+          return (
+            !hidden && (
+              <SuggestionsListLi key={_id}>
+                <span>
+                  <span className="suggestion-name">{name} </span>
+                  <span className="suggestion-price">
+                    {price} <small>€</small>
+                  </span>
+                </span>
+                <CartControlButtons _id={_id} product={product} />
+              </SuggestionsListLi>
+            )
+          );
+        })}
+      </SuggestionsListUl>
+    </SuggestionsContainer>
+  ) : (
+    <></>
+  );
+};
+
+export default Suggestions;

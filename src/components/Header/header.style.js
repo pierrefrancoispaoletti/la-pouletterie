@@ -19,8 +19,8 @@ export const HeaderContainer = styled.header`
   align-items: center;
   padding: 0 12px;
   border-bottom: 2px solid ${colors.gold};
-  border-radius: 0 0 50px 50px;
-  box-shadow: 0px 10px 16px -5px ${colors.gold};
+  box-shadow: 0px 10px 16px -5px ${colors.grey};
+  background: white;
 `;
 
 export const ButtonsContainer = styled.div`
