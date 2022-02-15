@@ -16,8 +16,8 @@ const INITIAL_STATE = {
   },
   canDeliver: false,
   originAddress: "La Pouletterie, C.Commercial mezzavia, 20090 Ajaccio",
-  phone: "0836656565",
-  email: "test@test.fr",
+  phone: "04 95 73 50 68",
+  email: "sascelisar@gmail.com",
   averageTimeBeforeDeliveryInMinutes: 0,
 };
 

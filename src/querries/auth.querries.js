@@ -69,7 +69,6 @@ export const registerQuerry = async (newUserObject, dispatch, navigate) => {
       }, 5000);
     }
   } catch (error) {
-    console.log(error);
     dispatch(toggleLoading());
     dispatch(
       setMessage({
@@ -140,7 +139,6 @@ export const verifyToken = async (userToken, dispatch) => {
       return false;
     }
   } catch (error) {
-    console.log(error);
     dispatch(toggleLoading());
     dispatch(
       setMessage({

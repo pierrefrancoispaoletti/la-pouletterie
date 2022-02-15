@@ -91,8 +91,6 @@ const Register = () => {
     }
   };
 
-  console.log(newUser);
-
   return (
     <LoginContainer>
       <CategoryTitle>Inscription</CategoryTitle>

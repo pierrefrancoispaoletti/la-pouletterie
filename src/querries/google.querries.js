@@ -37,10 +37,8 @@ export const getDistanceMatrix = async (origin, dest, postalCode, dispatch) => {
       !deliveryPostalCodes.includes(postalCode) ||
       medianDurationValueInSeconds > maximumTimeInSeconds
     ) {
-      console.log(false);
       dispatch(changeCanDeliver(false));
     } else {
-      console.log(true);
       dispatch(changeCanDeliver(true));
       dispatch(
         setAverageTimeBeforeDelivery(
@@ -50,11 +48,10 @@ export const getDistanceMatrix = async (origin, dest, postalCode, dispatch) => {
     }
   } catch (error) {
     dispatch(changeCanDeliver(false));
-    console.log(error);
     dispatch(
       setMessage({
         status: "error",
-        message: "Il y à eu un probléme",
+        message: "Impossible de calculer le temps de livraison estimé",
       })
     );
   }
