@@ -103,7 +103,7 @@ const App = () => {
         <UpdateProductModal />
       )}
       <UpdatePasswordElement />
-      <Footer />
+      {process.env.NODE_ENV === "production" && <Footer />}
     </AppContainer>
   );
 };

@@ -17,14 +17,11 @@ export const getCartTotal = (cart) => {
 //changer de place cette methode vers un dossier utils
 
 export const addProductToCart = (product, cart) => {
-  let newCart = [...cart];
-  let index = newCart.findIndex((item) => item._id === product._id);
-  if (index !== -1) {
-    newCart[index].quantity += 1;
-    cart = [...newCart];
-  } else {
-    cart = [...newCart, { ...product, quantity: 1 }];
+  let index = cart.findIndex((item) => item._id === product._id);
+  if (index === -1) {
+    return [...cart, { ...product, quantity: 1 }];
   }
+  cart[index].quantity += 1;
   return [...cart];
 };
 

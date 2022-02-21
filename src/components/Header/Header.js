@@ -56,6 +56,7 @@ const Header = () => {
       <ButtonsContainer>
         {!user ? (
           <Link
+            id="connect-link"
             to="/connexion"
             style={{ textDecoration: "none", color: "inherit" }}
           >
